@@ -1,12 +1,12 @@
 //Regex fork of the quirk translator
 
-import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode } from './inputs.js'
+import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart } from './inputs.js'
 
 console.log(`Default input text: ${input}`)
 
 import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex } from './regexFilters.js';
 
-import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain } from './punctuation.js';
+import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences } from './punctuation.js';
 
 //character translators below
 
@@ -58,6 +58,63 @@ const psiionicTranslate = input => {
     }
 
 console.log(psiionicTranslate(input));
+
+const signlessTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let signlessArray = []
+    handleOmit ? signlessArray = [""] : signlessArray = ["CG: "]
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
+    let capitalizedText = capitalizeSentences(input)
+    //feeding result into bToSixRegex
+    let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
+    //Feeding bResult into oToNine regex
+    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    //feeding regComplete through the capsChain function to allow for Signless' rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
+    signlessArray.push(regComplete)
+    // adding workskin coding
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="kankri">';
+        signlessArray.unshift(textColour)
+        signlessArray.push("</span>")
+    }
+    const signlessOutput = signlessArray.join("")
+    return signlessOutput
+}
+
+console.log(signlessTranslate(input))
+
+const discipleTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let discipleArray = []
+    handleOmit ? discipleArray = [""] : discipleArray = ["AC: "];
+    //bracketing Disciple's text with her partner's signs if selected. If the workskin coding is on, the sign halves will be formatted in their colours, else they will be added as plaintext. Opening added here.
+    if (discipleStart) {
+        workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
+    }
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
+    let capitalizedText = capitalizeSentences(input)
+    //feeding capitalised text into eeRegex
+    const eeResult = capitalizedText.replace(eeRegex, eeSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = eeResult
+    discipleArray.push(regComplete)
+    //bracketing Disciple's text with her partner's signs if selected. Ended added here.
+    if (discipleStart) {
+        workskinCode ? discipleArray.push('<span class="sollux">I</span><span class="kankri">9</span><span class="nepeta"> ') : discipleArray.push("I9 ")
+    }
+    // adding workskin coding
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="nepeta">';
+        discipleArray.unshift(textColour)
+        discipleArray.push("</span>")
+    }
+    const discipleOutput = discipleArray.join("")
+    return discipleOutput
+}
+
+console.log(discipleTranslate(input))
 
 const aradiaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable

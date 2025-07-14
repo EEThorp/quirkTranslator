@@ -74,4 +74,25 @@ const capsChain = (input, index) => {
     return capsCount;
 };
 
-export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain };
+function capitalizeSentences(text) {
+
+    // Split the text into sentences 
+    // using regular expressions
+    const sentences = text.split(/\.|\?|!/);
+
+    // Capitalize the first letter of each sentence
+    const capitalizedSentences = sentences
+        // Remove empty sentences
+        .filter(sentence =>
+            sentence.trim() !== '')
+        .map(sentence =>
+            sentence.trim()[0]
+                .toUpperCase() +
+            sentence.trim().slice(1));
+
+    // Join the sentences back together
+    return capitalizedSentences.join('. ') + '.';
+}
+//this capitalizeSentences converter borrowed from geeksforgeeks.org https://www.geeksforgeeks.org/javascript/javascript-program-to-capitalize-the-first-letter-of-every-sentence-in-a-string/
+
+export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences };
