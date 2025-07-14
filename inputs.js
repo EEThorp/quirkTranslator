@@ -27,5 +27,7 @@ let vriskaAngry = false
 let halQuirk = false
 //flag for including workskin formatting
 let workskinCode = false
+//flag for Disciple's text to bracket her text with her partner's signs. default is true.
+let discipleStart = true
 
-export { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode };
+export { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart };
