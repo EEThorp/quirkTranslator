@@ -1,6 +1,7 @@
 //Regex fork of the quirk translator
 
 import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart } from './inputs.js'
+import { serketReplacements } from './serketTranslations.js';
 
 console.log(`Default input text: ${input}`)
 
@@ -340,3 +341,28 @@ const kanayaTranslate = input => {
 }
 
 console.log(kanayaTranslate(input))
+
+const vriskaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let vriskaArray = []
+    handleOmit ? vriskaArray = [""] : vriskaArray = ["AG: "];
+    //setting up the serketReplaced variable with just the input at the start so it can be updated once the replacement is done.
+    let serketReplaced = input;
+    for (const [word, replacement] of serketReplacements) {
+        // Escape special regex characters (like the circumflex in fête)
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        serketReplaced = serketReplaced.replace(regex, replacement)
+    }
+    vriskaArray.push(serketReplaced);
+    if(workskinCode) {
+        let textColour = workskinCustom || '<span class="vriska">';
+            vriskaArray.unshift(textColour);
+            vriskaArray.push("</span>"); 
+        }
+    const vriskaOutput = vriskaArray.join("")
+    return vriskaOutput
+}
+
+console.log(vriskaTranslate(input))
