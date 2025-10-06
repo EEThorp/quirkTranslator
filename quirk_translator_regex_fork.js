@@ -2,6 +2,8 @@
 
 import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart } from './inputs.js'
 import { serketReplacements } from './serketTranslations.js';
+import { horsePuns } from './horsePuns.js';
+import { catPuns } from './catPuns.js';
 
 console.log(`Default input text: ${input}`)
 
