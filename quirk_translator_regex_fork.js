@@ -4,12 +4,57 @@ import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, 
 import { serketReplacements } from './serketTranslations.js';
 import { horsePuns } from './horsePuns.js';
 import { catPuns } from './catPuns.js';
+import { seadwellerPuns } from './seadwellerPuns.js';
 
 console.log(`Default input text: ${input}`)
 
 import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences } from './punctuation.js';
+
+//pun translator sections below
+
+//converts input to input with cat puns, to be used as input substitute for characters who have a cat pun quirk if that option is selected.
+let catPunInput = input => {
+    let result = input;
+    for (const [word, replacement] of catPuns) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+
+//console.log(catPunInput(input))
+
+//converts input to input with horse puns, to be used as input substitute for characters who have a horse pun quirk if that option is selected.
+let horsePunInput = input => {
+    let result = input;
+    for (const [word, replacement] of horsePuns) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+
+//converts input to input with seadweller puns, to be used as input substitute for characters who have a seadweller pun quirk if that option is selected.
+let seadwellerPunInput = input => {
+    let result = input;
+    for (const [word, replacement] of seadwellerPuns) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+
 
 //character translators below
 
@@ -97,7 +142,7 @@ const discipleTranslate = input => {
         workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
     }
     // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
-    let capitalizedText = capitalizeSentences(input)
+    let capitalizedText = capitalizeSentences(catPunInput)
     //feeding capitalised text into eeRegex
     const eeResult = capitalizedText.replace(eeRegex, eeSubst)
     //adding the regex results to a completed regex variable, for easier transition to regular code.
@@ -118,6 +163,7 @@ const discipleTranslate = input => {
 }
 
 console.log(discipleTranslate(input))
+console.log(discipleTranslate(catPunInput(input)))
 
 const aradiaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -308,6 +354,7 @@ const nepetaTranslate = input => {
 }
 
 console.log(nepetaTranslate(input))
+console.log(nepetaTranslate(catPunInput(input)))
 
 const kanayaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
