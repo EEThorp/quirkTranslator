@@ -29,5 +29,7 @@ let halQuirk = false
 let workskinCode = false
 //flag for Disciple's text to bracket her text with her partner's signs. default is true.
 let discipleStart = true
+//flag for gamzee's sobriety, default is false.
+let gamzeeSober = false
 
-export { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart };
+export { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart, gamzeeSober };

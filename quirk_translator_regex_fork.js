@@ -1,6 +1,6 @@
 //Regex fork of the quirk translator
 
-import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart } from './inputs.js'
+import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart, gamzeeSober } from './inputs.js'
 import { serketReplacements } from './serketTranslations.js';
 import { horsePuns } from './horsePuns.js';
 import { catPuns } from './catPuns.js';
@@ -10,7 +10,7 @@ console.log(`Default input text: ${input}`)
 
 import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst } from './regexFilters.js';
 
-import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences } from './punctuation.js';
+import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps } from './punctuation.js';
 
 //pun translator sections below
 
@@ -493,3 +493,33 @@ const equiusTranslate = input => {
 
 console.log(equiusTranslate(input))
 console.log(equiusTranslate(horsePunInput(input)))
+
+const gamzeeTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let gamzeeArray1 = []
+    let gamzeeArray2 = []
+    handleOmit ? gamzeeArray1 = [""] : gamzeeArray1 = ["TC: "];
+    handleOmit ? gamzeeArray2 = [""] : gamzeeArray2 = ["TC: "];
+    if (gamzeeSober) {
+        let lowerInput = input.toLowerCase();
+        let upperInput = input.toUpperCase();
+        gamzeeArray1.push(lowerInput);
+        gamzeeArray2.push(upperInput);}
+    else {
+        let evenCapsInput = evenCaps(input);
+        let oddCapsInput = oddCaps(input);
+        gamzeeArray1.push(evenCapsInput);
+        gamzeeArray2.push(oddCapsInput);
+    }
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="gamzee">';
+        gamzeeArray1.unshift(textColour)
+        gamzeeArray2.unshift(textColour)
+        gamzeeArray1.push("</span>")
+        gamzeeArray2.push("</span>")
+    }
+    const gamzeeOutput = `${gamzeeArray1.join("")}\n${gamzeeArray2.join("")}`
+    return gamzeeOutput
+}
+
+console.log(gamzeeTranslate(input))
