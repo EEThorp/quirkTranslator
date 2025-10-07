@@ -350,4 +350,4 @@ const pairs = lines.map(line => {
     return [word, replacement];
 });
 //sort by word length (longest first) to prevent partial replacements
-pairs.sort((a, b) => b[0].length - a[0].length);
+export const seadwellerPuns = pairs.sort((a, b) => b[0].length - a[0].length);
