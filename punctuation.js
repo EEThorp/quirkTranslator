@@ -1,6 +1,7 @@
 //punctuation rules and also functions stored here.
 
-import { startCapRegex, capsRegex } from './regexFilters.js';
+import { startCapRegex, capsRegex, letterRegex } from './regexFilters.js';
+import { input } from './inputs.js';
 
 // punctuation to be omitted lists
 const punctuationAll = [",", ".", "!", "?", ":", ";", "'"]
@@ -95,4 +96,48 @@ function capitalizeSentences(text) {
 }
 //this capitalizeSentences converter borrowed from geeksforgeeks.org https://www.geeksforgeeks.org/javascript/javascript-program-to-capitalize-the-first-letter-of-every-sentence-in-a-string/
 
-export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences };
+//even caps and odd caps functions capitalize every other letter in the input text, alternating between uppercase and lowercase. EvenCaps starts with uppercase and oddCaps starts with lowercase.
+function evenCaps(input) {
+    let evenCapsArray = []
+    let characterCount = 0
+    for (let i = 0; i < input.length; i++) {
+        if (letterRegex.test(input[i])) {
+            if (characterCount % 2 === 0) {
+                evenCapsArray.push(input[i].toUpperCase())
+            } else {
+                evenCapsArray.push(input[i].toLowerCase())
+            }
+            characterCount++
+        }
+        else {
+            evenCapsArray.push(input[i])
+        }
+    }
+    return evenCapsArray.join("")
+}
+
+//console.log(evenCaps(input))
+
+function oddCaps(input) {
+    let oddCapsArray = []
+    let characterCount = 0
+    for (let i = 0; i < input.length; i++) {
+        if (letterRegex.test(input[i])) {
+            if (characterCount % 2 === 0) {
+                oddCapsArray.push(input[i].toLowerCase())
+                characterCount++
+            } else {
+                oddCapsArray.push(input[i].toUpperCase())
+                characterCount++
+            }
+        }
+        else {
+            oddCapsArray.push(input[i])
+        }
+    }
+    return oddCapsArray.join("")
+}
+
+//console.log(oddCaps(input))
+
+export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps };
