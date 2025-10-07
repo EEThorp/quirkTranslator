@@ -142,7 +142,7 @@ const discipleTranslate = input => {
         workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
     }
     // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
-    let capitalizedText = capitalizeSentences(catPunInput)
+    let capitalizedText = capitalizeSentences(input)
     //feeding capitalised text into eeRegex
     const eeResult = capitalizedText.replace(eeRegex, eeSubst)
     //adding the regex results to a completed regex variable, for easier transition to regular code.
@@ -390,6 +390,39 @@ const kanayaTranslate = input => {
 }
 
 console.log(kanayaTranslate(input))
+
+const tereziTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let tereziArray = []
+    handleOmit ? tereziArray = [""] : tereziArray = ["GC: "];
+    //converting input to uppercase
+    let upperInput = input.toUpperCase();
+    //feeding upperInput text through first regex translator.
+    const aResult = upperInput.replace(aRegex, aSubst);
+    //feeding aResult output into the next translator
+    const iToOneResult = aResult.replace(iToOneRegex, iToOneSubst);
+    //feeding iToOneResult output into the next translator
+    const eResult = iToOneResult.replace(eRegex, eSubst);
+    //adding regex results to completed regex variable
+    const regComplete = eResult
+    //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
+    for (let i = 0; i < regComplete.length; i++) {
+        if (tereziPunctuation.includes(regComplete[i])) {
+            continue
+        } else {
+            tereziArray.push(regComplete[i])
+        }
+    }
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="terezi">';
+        tereziArray.unshift(textColour)
+        tereziArray.push("</span>")
+    }
+    const tereziOutput = tereziArray.join("")
+    return tereziOutput
+}
+
+console.log(tereziTranslate(input))
 
 const vriskaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
