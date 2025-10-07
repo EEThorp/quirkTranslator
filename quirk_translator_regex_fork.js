@@ -8,7 +8,7 @@ import { seadwellerPuns } from './seadwellerPuns.js';
 
 console.log(`Default input text: ${input}`)
 
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences } from './punctuation.js';
 
@@ -448,3 +448,48 @@ const vriskaTranslate = input => {
 }
 
 console.log(vriskaTranslate(input))
+
+const equiusTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let equiusArray = []
+    handleOmit ? equiusArray = [""] : equiusArray = ["CT: "];
+    if (meowrailsStart) {
+        equiusArray.push("D --> ")
+    }
+    //feeding input text through first regex translator.
+    const strongResult = input.replace(strongRegex, strongSubst);
+    //feeding strongResult output into the next translator
+    const strengthResult = strongResult.replace(strengthRegex, strengthSubst);
+    //feeding strengthResult output into the next translator
+    const strongnessResult = strengthResult.replace(strongnessRegex, strongnessSubst);
+    //feeding strongnessResult output into the next translator
+    const strongestResult = strongnessResult.replace(strongestRegex, strongestSubst);
+    //feeding strongestResult output into the next translator
+    const xResult = strongestResult.replace(xRegex, xSubst);
+    //feeding xResult output into the next translator
+    const looResult = xResult.replace(looRegex, looSubst);
+    //feeding looResult output into the next translator
+    const oolResult = looResult.replace(oolRegex, oolSubst);
+    //feeding oolResult output into the next translator
+    const crossResult = oolResult.replace(crossRegex, crossSubst);
+    //adding regex results to completed regex variable
+    const regComplete = crossResult
+    //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
+    for (let i = 0; i < regComplete.length; i++) {
+        if (terminalPunctuation.includes(regComplete[i])) {
+            continue
+        } else {
+            equiusArray.push(regComplete[i])
+        }
+    }
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="equius">';
+        equiusArray.unshift(textColour)
+        equiusArray.push("</span>")
+    }
+    const equiusOutput = equiusArray.join("")
+    return equiusOutput
+}
+
+console.log(equiusTranslate(input))
+console.log(equiusTranslate(horsePunInput(input)))
