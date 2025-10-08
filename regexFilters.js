@@ -76,7 +76,7 @@ const capERegex = new RegExp('E', 'mg');
 const capESubst = `-E`;
 //match instances of h and H and replaces with )(. Case insensitive.
 const hRegex = new RegExp('h', 'mgi');
-const hSubst = `)()`;
+const hSubst = `)(`;
 //match instances of b and replaces with 8. Case insensitive.
 const bRegex = new RegExp('b', 'mgi');
 const bSubst = `8`;
