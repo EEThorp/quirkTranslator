@@ -584,3 +584,24 @@ const eridanTranslate = input => {
 
 console.log(eridanTranslate(input))
 console.log(eridanTranslate(seadwellerPunInput(input)))
+
+const feferiTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let feferiArray = []
+    handleOmit ? feferiArray = [""] : feferiArray = ["CC: "]
+    //feeding input through regex translators
+    const hResult = input.replace(hRegex, hSubst)
+    const eResult = hResult.replace(capERegex, capESubst)
+    const regComplete = eResult
+    feferiArray.push(regComplete)
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="feferi">';
+        feferiArray.unshift(textColour)
+        feferiArray.push("</span>")
+    }
+    const feferiOutput = feferiArray.join("")
+    return feferiOutput
+}
+
+console.log(feferiTranslate(input))
+console.log(feferiTranslate(seadwellerPunInput(input)))
