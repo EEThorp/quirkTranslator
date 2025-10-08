@@ -59,12 +59,18 @@ const oolSubst = `001`;
 //match instances of cross either in isolation or as part of a word and replaces it with %. Case insensitive.
 const crossRegex = new RegExp('cross', 'mgi');
 const crossSubst = `%`;
-//match instances of w and replaces with ww. Case insensitive. 
-const wwRegex = new RegExp('w', 'mgi');
-const wwSubst = `ww`;
-//match instances of v and replaces with vv. Case insensitive.
-const vRegex = new RegExp('v', 'mgi');
-const vSubst = `vv`;
+//match instances of w and replaces with ww, matching case context
+const wwRegex = new RegExp('w', 'gi');  
+//match instances of v and replaces with vv, matching case context
+const vRegex = new RegExp('v', 'gi');
+//INSTRUCTIONS FOR WW AND V REGEX: these do not have replacements as they need to be used with code that goes in the translator itself. An example of this translation that tests for case and replaces correctly is:
+/* const vvResult = YOUR_INPUT.replace(vRegex, (match, offset, string) => {
+    const nextChar = string[offset + 1];
+    const prevChar = string[offset - 1];
+    const useUppercase = (nextChar && /[A-Z]/.test(nextChar)) || 
+                         (prevChar && /[A-Z]/.test(prevChar));
+    return match + (useUppercase ? match.toUpperCase() : match.toLowerCase());
+}); */
 //match instances of E and replaces with -E. Case sensitive.
 const capERegex = new RegExp('E', 'mg');
 const capESubst = `-E`;
@@ -96,17 +102,36 @@ const zeroPlusSubst = `0+`;
 const capsRegex = new RegExp('[A-Z]', 'gm')
 //uppercases the word strong
 const strongRegex = new RegExp('strong', 'gmi');
-const strongSubst = `STRONG`;
+const strongSubst = `\\bSTRONG\\b`;
 //uppercases and converts strength
 const strengthRegex = new RegExp('strength', 'gmi');
-const strengthSubst = `STRENGTH`;
+const strengthSubst = `\\bSTRENGTH\\b`;
 //uppercases and converts strongness
 const strongnessRegex = new RegExp('strongness', 'gmi');
-const strongnessSubst = `STRONGNESS`;
+const strongnessSubst = `\\bSTRONGNESS\\b`;
 //uppercasses and converts strongest 
 const strongestRegex = new RegExp('strongest', 'gmi');
-const strongestSubst = `STRONGEST`;
+const strongestSubst = `\\bSTRONGEST\\b`;
 //is a letter, including accented letters
 const letterRegex = new RegExp('[a-zA-Z\\u00C0-\\u024F\\u1E00-\\u1EFF]')
+//turns want to into wanna. lowercase only.
+const wannaLowerRegex = new RegExp('\\bwant to\\b', 'gm')
+const wannaLowerSubst = `wanna`;
+//turns want into wanna. proper case only.
+const wannaProperRegex = new RegExp('\\bWant to\\b', 'gm')
+const wannaProperSubst = `Wanna`;
+//turns want to into wanna. Uppercase only.
+const wannaUpperRegex = new RegExp('\\bWANT TO\\b', 'gm')
+const wannaUpperSubst = `WANNA`;
+//turns going to into gonna, lowercase only.
+const gonnaLowerRegex = new RegExp('\\bgoing to\\b', 'gm')
+const gonnaLowerSubst = `gonna`;
+//turns going into gonna, proper case only.
+const gonnaProperRegex = new RegExp('\\bGoing to\\b', 'gm')
+const gonnaProperSubst = `Gonna`;
+//turns going to into gonna, uppercase only.
+const gonnaUpperRegex = new RegExp('\\bGOING TO\\b', 'gm')
+const gonnaUpperSubst = `GONNA`;
 
-export { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, letterRegex};
+
+export { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, letterRegex, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst};

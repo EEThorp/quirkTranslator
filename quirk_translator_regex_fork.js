@@ -5,10 +5,11 @@ import { serketReplacements } from './serketTranslations.js';
 import { horsePuns } from './horsePuns.js';
 import { catPuns } from './catPuns.js';
 import { seadwellerPuns } from './seadwellerPuns.js';
+import { ingConverter } from './ingConverter.js';
 
 console.log(`Default input text: ${input}`)
 
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, wwSubst, vRegex, vSubst, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps } from './punctuation.js';
 
@@ -55,6 +56,17 @@ let seadwellerPunInput = input => {
     return result;
 }
 
+let ingConverterInput = input => {
+    let result = input;
+    for (const [word, replacement] of ingConverter) {
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+
+//console.log(ingConverterInput(input))
 
 //character translators below
 
@@ -523,3 +535,52 @@ const gamzeeTranslate = input => {
 }
 
 console.log(gamzeeTranslate(input))
+
+const eridanTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let eridanArray = []
+    handleOmit ? eridanArray = [""] : eridanArray = ["CA: "]
+    //feeding input through ingConverter
+    const ingResult = ingConverterInput(input);
+    //feeding ingResult output into the case variations of wanna, gonna, Wanna, Gonna, WANNA, GONNA
+    const wannaResult = ingResult.replace(wannaLowerRegex, wannaLowerSubst);
+    const wannaProperResult = wannaResult.replace(wannaProperRegex, wannaProperSubst);
+    const wannaUpperResult = wannaProperResult.replace(wannaUpperRegex, wannaUpperSubst);
+    const gonnaResult = wannaUpperResult.replace(gonnaLowerRegex, gonnaLowerSubst);
+    const gonnaProperResult = gonnaResult.replace(gonnaProperRegex, gonnaProperSubst);
+    const gonnaUpperResult = gonnaProperResult.replace(gonnaUpperRegex, gonnaUpperSubst);
+    //feeding the wanna/gonna results into the ww and vv converters, now that all other translations are done.
+    // v doubling with case matching
+    const vvResult = gonnaUpperResult.replace(vRegex, (match, offset, string) => {
+        const nextChar = string[offset + 1];
+        const prevChar = string[offset - 1];
+        const useUppercase = (nextChar && /[A-Z]/.test(nextChar)) || 
+                                (prevChar && /[A-Z]/.test(prevChar));
+        return match + (useUppercase ? match.toUpperCase() : match.toLowerCase());
+    });
+    
+    // w doubling with case matching
+    const wwResult = vvResult.replace(wwRegex, (match, offset, string) => {
+        const nextChar = string[offset + 1];
+        const prevChar = string[offset - 1];
+        const useUppercase = (nextChar && /[A-Z]/.test(nextChar)) || 
+                                (prevChar && /[A-Z]/.test(prevChar));
+        return match + (useUppercase ? match.toUpperCase() : match.toLowerCase());
+    });
+    //adding regex results to completed regex variable
+    const regComplete = wwResult;
+    //workskin coding
+    if (workskinCode) {
+        let textColour = workskinCustom || '<span class="eridan">';
+        eridanArray.unshift(textColour)
+        eridanArray.push("</span>")
+    }
+    else {
+        eridanArray.push(regComplete)
+    }
+    const eridanOutput = eridanArray.join("")
+    return eridanOutput
+};
+
+console.log(eridanTranslate(input))
+console.log(eridanTranslate(seadwellerPunInput(input)))
