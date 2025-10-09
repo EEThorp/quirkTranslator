@@ -1,0 +1,48 @@
+HOMESTUCK TEXT TRANSLATOR - HOW TO RUN THE WEB INTERFACE
+=========================================================
+
+IMPORTANT: This web application uses ES6 modules, which require a web server to run properly.
+You cannot simply open index.html directly in your browser due to CORS restrictions.
+
+RUNNING THE APPLICATION:
+
+Option 1: Using Python (recommended for quick testing)
+-------------------------------------------------------
+1. Open a terminal/command prompt in this directory
+2. Run one of these commands depending on your Python version:
+   
+   Python 3:
+   python -m http.server 8000
+   
+   Python 2:
+   python -m SimpleHTTPServer 8000
+
+3. Open your browser and navigate to: http://localhost:8000
+
+Option 2: Using VS Code Live Server Extension
+----------------------------------------------
+1. Install the "Live Server" extension in VS Code
+2. Right-click on index.html
+3. Select "Open with Live Server"
+
+Option 3: Using Node.js http-server
+------------------------------------
+1. Install http-server globally: npm install -g http-server
+2. Run: http-server -p 8000
+3. Open your browser and navigate to: http://localhost:8000
+
+USAGE:
+
+1. Enter text in the input box at the top
+2. (Optional) Check "Include workskin formatting" to add HTML span tags for AO3 workskins
+3. (Optional) Select a custom text color from the dropdown if workskin formatting is enabled
+4. (Optional) Uncheck "Include handle abbreviations" to remove chat handles (e.g., "TA: ") from output
+5. Select characters from the Canon or Unda Canon sections by checking their boxes
+6. Click the yellow arrow button to generate translations
+7. Translation outputs will appear below the input section
+8. For characters with variants (like Sollux or Gamzee), additional options will appear in their output boxes
+
+ADDING NEW TRANSLATORS:
+
+See the comments at the bottom of main.js for detailed instructions on how to add new character translators to the interface.
+

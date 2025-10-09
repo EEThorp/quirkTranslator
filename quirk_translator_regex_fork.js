@@ -1,6 +1,6 @@
 //Regex fork of the quirk translator
 
-import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart, gamzeeSober } from './inputs.js'
+import { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart, gamzeeSober, state } from './inputs.js'
 import { serketReplacements } from './serketTranslations.js';
 import { horsePuns } from './horsePuns.js';
 import { catPuns } from './catPuns.js';
@@ -73,7 +73,7 @@ let ingConverterInput = input => {
 const psiionicTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let psiiArray = []
-    handleOmit ? psiiArray = [""] : psiiArray = ["TA: "]
+    state.handleOmit ? psiiArray = [""] : psiiArray = ["TA: "]
     //converting input text to lower case
     let lowerInput = input.toLowerCase();
     //feeding lowerInput text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. Using the caps identifier functions and capitalize at indices to apply appropriate caps use, this goes before the i converter as that will always be lower case.
@@ -108,8 +108,8 @@ const psiionicTranslate = input => {
             psiiArray.push(regComplete[i])
         }
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="sollux">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="sollux">';
         psiiArray.unshift(textColour)
         psiiArray.push("</span>")
     }
@@ -122,7 +122,7 @@ console.log(psiionicTranslate(input));
 const signlessTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let signlessArray = []
-    handleOmit ? signlessArray = [""] : signlessArray = ["CG: "]
+    state.handleOmit ? signlessArray = [""] : signlessArray = ["CG: "]
     // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
     let capitalizedText = capitalizeSentences(input)
     //feeding result into bToSixRegex
@@ -134,8 +134,8 @@ const signlessTranslate = input => {
     //feeding regComplete through the capsChain function to allow for Signless' rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
     signlessArray.push(regComplete)
     // adding workskin coding
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="kankri">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kankri">';
         signlessArray.unshift(textColour)
         signlessArray.push("</span>")
     }
@@ -148,10 +148,10 @@ console.log(signlessTranslate(input))
 const discipleTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let discipleArray = []
-    handleOmit ? discipleArray = [""] : discipleArray = ["AC: "];
+    state.handleOmit ? discipleArray = [""] : discipleArray = ["AC: "];
     //bracketing Disciple's text with her partner's signs if selected. If the workskin coding is on, the sign halves will be formatted in their colours, else they will be added as plaintext. Opening added here.
-    if (discipleStart) {
-        workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
+    if (state.discipleStart) {
+        state.workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
     }
     // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
     let capitalizedText = capitalizeSentences(input)
@@ -161,12 +161,12 @@ const discipleTranslate = input => {
     let regComplete = eeResult
     discipleArray.push(regComplete)
     //bracketing Disciple's text with her partner's signs if selected. Ended added here.
-    if (discipleStart) {
-        workskinCode ? discipleArray.push('<span class="sollux">I</span><span class="kankri">9</span><span class="nepeta"> ') : discipleArray.push("I9 ")
+    if (state.discipleStart) {
+        state.workskinCode ? discipleArray.push('<span class="sollux">I</span><span class="kankri">9</span><span class="nepeta"> ') : discipleArray.push("I9 ")
     }
     // adding workskin coding
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="nepeta">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="nepeta">';
         discipleArray.unshift(textColour)
         discipleArray.push("</span>")
     }
@@ -180,7 +180,7 @@ console.log(discipleTranslate(catPunInput(input)))
 const aradiaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let aradiaArray = []
-    handleOmit ? aradiaArray = [""] : aradiaArray = ["AA: "]
+    state.handleOmit ? aradiaArray = [""] : aradiaArray = ["AA: "]
     //converting input text to lower case
     let lowerInput = input.toLowerCase();
     //feeding lowerInput text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators.
@@ -195,8 +195,8 @@ const aradiaTranslate = input => {
             aradiaArray.push(regComplete[i])
         }
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="aradia">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="aradia">';
         aradiaArray.unshift(textColour)
         aradiaArray.push("</span>")
     }
@@ -209,7 +209,7 @@ console.log(aradiaTranslate(input));
 const tavrosTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let tavrosArray = []
-    handleOmit ? tavrosArray = [""] : tavrosArray = ["AT: "]
+    state.handleOmit ? tavrosArray = [""] : tavrosArray = ["AT: "]
     //converting text to upper case
     let upperInput = input.toUpperCase();
     //feeding upperInput text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. Using the caps identifier functions and uncapitalize at indices to apply appropriate caps use.
@@ -220,8 +220,8 @@ const tavrosTranslate = input => {
     //adding the regex results to a completed regex variable, for easier transition to regular code.
     let regComplete = commaResult
     tavrosArray.push(regComplete)
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="tavros">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="tavros">';
         tavrosArray.unshift(textColour)
         tavrosArray.push("</span>")
     }
@@ -235,13 +235,13 @@ console.log(tavrosTranslate(input));
 const solluxTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let solluxArray = []
-    handleOmit ? solluxArray = [""] : solluxArray = ["TA: "]
+    state.handleOmit ? solluxArray = [""] : solluxArray = ["TA: "]
     //setting up if/else logic to determine which typing style to use
     let regComplete 
-    if (solluxBlind) {
+    if (state.solluxBlind) {
         const oResult = input.replace(oRegex, oSubst);
         regComplete = oResult
-    } else if (solluxHalfDead) {
+    } else if (state.solluxHalfDead) {
         //creating a counter for 0's so the translator can convert every other one.
         let zeroCounter = 0
         //creating a blank array for the output of the conversion.
@@ -303,8 +303,8 @@ const solluxTranslate = input => {
             solluxArray.push(regComplete[i].toLowerCase());
         }
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="sollux">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="sollux">';
         solluxArray.unshift(textColour)
         solluxArray.push("</span>")
     }
@@ -317,14 +317,14 @@ console.log(solluxTranslate(input))
 const karkatTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let karkatArray = []
-    handleOmit ? karkatArray = [""] : karkatArray = ["CG: "];
+    state.handleOmit ? karkatArray = [""] : karkatArray = ["CG: "];
     //converting to upper case
     let upperInput = input.toUpperCase();
     //adding to array
     karkatArray.push(upperInput)
     //converting array to string
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="karkat">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="karkat">';
         karkatArray.unshift(textColour)
         karkatArray.push("</span>")
     }
@@ -338,8 +338,8 @@ console.log(karkatTranslate(input))
 const nepetaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let nepetaArray = []
-    handleOmit ? nepetaArray = [""] : nepetaArray = ["AC: "];
-    if (meowrailsStart) {
+    state.handleOmit ? nepetaArray = [""] : nepetaArray = ["AC: "];
+    if (state.meowrailsStart) {
         nepetaArray.push(":33 < ")
     }
     //converting to lowercase
@@ -355,8 +355,8 @@ const nepetaTranslate = input => {
             nepetaArray.push(regComplete[i])
         }
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="nepeta">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="nepeta">';
         nepetaArray.unshift(textColour)
         nepetaArray.push("</span>")
     }
@@ -371,7 +371,7 @@ console.log(nepetaTranslate(catPunInput(input)))
 const kanayaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let kanayaArray = []
-    handleOmit ? kanayaArray = [""] : kanayaArray = ["GA: "];
+    state.handleOmit ? kanayaArray = [""] : kanayaArray = ["GA: "];
     //converting input to lowercase to ensure that that everything is lowercase before we convert the first letter of each word to uppercase.
     const lowerInput = input.toLowerCase()
     const punctRemoved = []
@@ -392,8 +392,8 @@ const kanayaTranslate = input => {
         capsWords.push(word)
     }
     kanayaArray.push(capsWords.join(" "))
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="kanaya">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kanaya">';
         kanayaArray.unshift(textColour)
         kanayaArray.push("</span>")
     }
@@ -406,7 +406,7 @@ console.log(kanayaTranslate(input))
 const tereziTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let tereziArray = []
-    handleOmit ? tereziArray = [""] : tereziArray = ["GC: "];
+    state.handleOmit ? tereziArray = [""] : tereziArray = ["GC: "];
     //converting input to uppercase
     let upperInput = input.toUpperCase();
     //feeding upperInput text through first regex translator.
@@ -425,8 +425,8 @@ const tereziTranslate = input => {
             tereziArray.push(regComplete[i])
         }
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="terezi">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="terezi">';
         tereziArray.unshift(textColour)
         tereziArray.push("</span>")
     }
@@ -439,7 +439,7 @@ console.log(tereziTranslate(input))
 const vriskaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let vriskaArray = []
-    handleOmit ? vriskaArray = [""] : vriskaArray = ["AG: "];
+    state.handleOmit ? vriskaArray = [""] : vriskaArray = ["AG: "];
     //setting up the serketReplaced variable with just the input at the start so it can be updated once the replacement is done.
     let serketReplaced = input;
     for (const [word, replacement] of serketReplacements) {
@@ -450,8 +450,8 @@ const vriskaTranslate = input => {
         serketReplaced = serketReplaced.replace(regex, replacement)
     }
     vriskaArray.push(serketReplaced);
-    if(workskinCode) {
-        let textColour = workskinCustom || '<span class="vriska">';
+    if(state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="vriska">';
             vriskaArray.unshift(textColour);
             vriskaArray.push("</span>"); 
         }
@@ -464,8 +464,8 @@ console.log(vriskaTranslate(input))
 const equiusTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let equiusArray = []
-    handleOmit ? equiusArray = [""] : equiusArray = ["CT: "];
-    if (meowrailsStart) {
+    state.handleOmit ? equiusArray = [""] : equiusArray = ["CT: "];
+    if (state.meowrailsStart) {
         equiusArray.push("D --> ")
     }
     //feeding input text through first regex translator.
@@ -494,8 +494,8 @@ const equiusTranslate = input => {
             equiusArray.push(regComplete[i])
         }
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="equius">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="equius">';
         equiusArray.unshift(textColour)
         equiusArray.push("</span>")
     }
@@ -510,9 +510,9 @@ const gamzeeTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let gamzeeArray1 = []
     let gamzeeArray2 = []
-    handleOmit ? gamzeeArray1 = [""] : gamzeeArray1 = ["TC: "];
-    handleOmit ? gamzeeArray2 = [""] : gamzeeArray2 = ["TC: "];
-    if (gamzeeSober) {
+    state.handleOmit ? gamzeeArray1 = [""] : gamzeeArray1 = ["TC: "];
+    state.handleOmit ? gamzeeArray2 = [""] : gamzeeArray2 = ["TC: "];
+    if (state.gamzeeSober) {
         let lowerInput = input.toLowerCase();
         let upperInput = input.toUpperCase();
         gamzeeArray1.push(lowerInput);
@@ -523,8 +523,8 @@ const gamzeeTranslate = input => {
         gamzeeArray1.push(evenCapsInput);
         gamzeeArray2.push(oddCapsInput);
     }
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="gamzee">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="gamzee">';
         gamzeeArray1.unshift(textColour)
         gamzeeArray2.unshift(textColour)
         gamzeeArray1.push("</span>")
@@ -539,7 +539,7 @@ console.log(gamzeeTranslate(input))
 const eridanTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let eridanArray = []
-    handleOmit ? eridanArray = [""] : eridanArray = ["CA: "]
+    state.handleOmit ? eridanArray = [""] : eridanArray = ["CA: "]
     //feeding input through ingConverter
     const ingResult = ingConverterInput(input);
     //feeding ingResult output into the case variations of wanna, gonna, Wanna, Gonna, WANNA, GONNA
@@ -570,9 +570,10 @@ const eridanTranslate = input => {
     //adding regex results to completed regex variable
     const regComplete = wwResult;
     //workskin coding
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="eridan">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="eridan">';
         eridanArray.unshift(textColour)
+        eridanArray.push(regComplete)
         eridanArray.push("</span>")
     }
     else {
@@ -588,14 +589,14 @@ console.log(eridanTranslate(seadwellerPunInput(input)))
 const feferiTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let feferiArray = []
-    handleOmit ? feferiArray = [""] : feferiArray = ["CC: "]
+    state.handleOmit ? feferiArray = [""] : feferiArray = ["CC: "]
     //feeding input through regex translators
     const hResult = input.replace(hRegex, hSubst)
     const eResult = hResult.replace(capERegex, capESubst)
     const regComplete = eResult
     feferiArray.push(regComplete)
-    if (workskinCode) {
-        let textColour = workskinCustom || '<span class="feferi">';
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="feferi">';
         feferiArray.unshift(textColour)
         feferiArray.push("</span>")
     }
@@ -605,3 +606,31 @@ const feferiTranslate = input => {
 
 console.log(feferiTranslate(input))
 console.log(feferiTranslate(seadwellerPunInput(input)))
+
+// Export all translator functions for use in web interface
+export {
+    // Pun input converters
+    catPunInput,
+    horsePunInput,
+    seadwellerPunInput,
+    ingConverterInput,
+    
+    // Character translators - Unda Canon
+    psiionicTranslate,
+    signlessTranslate,
+    discipleTranslate,
+    
+    // Character translators - Canon
+    aradiaTranslate,
+    tavrosTranslate,
+    solluxTranslate,
+    karkatTranslate,
+    nepetaTranslate,
+    kanayaTranslate,
+    tereziTranslate,
+    vriskaTranslate,
+    equiusTranslate,
+    gamzeeTranslate,
+    eridanTranslate,
+    feferiTranslate
+};

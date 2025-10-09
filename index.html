@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homestuck Text Translator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Header -->
+        <header>
+            <h1>Homestuck text translator</h1>
+        </header>
+
+        <div class="main-layout">
+            <!-- Left Column: Input and Output -->
+            <div class="left-column">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <div class="input-group">
+                        <textarea id="userInput" placeholder="Input here..."></textarea>
+                        <button id="submitBtn" class="submit-btn" aria-label="Submit">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Input Options -->
+                    <div class="input-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="workskinCode">
+                            <span>Include workskin formatting</span>
+                        </label>
+                        
+                        <div id="colorSelectGroup" class="color-select-group" style="display: none;">
+                            <label for="workskinCustom">Use non-standard text colour:</label>
+                            <select id="workskinCustom">
+                                <option value="">Default</option>
+                            </select>
+                        </div>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="handleAbbrev" checked>
+                            <span>Include handle abbreviations</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Translation Output Container -->
+                <section id="outputContainer" class="output-container">
+                    <!-- Dynamic output boxes will be inserted here -->
+                </section>
+            </div>
+
+            <!-- Right Column: Character Selection and Links -->
+            <div class="right-column">
+                <!-- Canon Section -->
+                <section class="character-section">
+                    <div class="section-header" data-section="canon">
+                        <span class="arrow">▼</span>
+                        <h2>Canon</h2>
+                    </div>
+                    <div class="section-content" id="canonContent">
+                        <div class="character-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="aradia">
+                                <span>Aradia</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="tavros">
+                                <span>Tavros</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="sollux">
+                                <span>Sollux</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="karkat">
+                                <span>Karkat</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="nepeta">
+                                <span>Nepeta</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="kanaya">
+                                <span>Kanaya</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="terezi">
+                                <span>Terezi</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="vriska">
+                                <span>Vriska</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="equius">
+                                <span>Equius</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="gamzee">
+                                <span>Gamzee</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="eridan">
+                                <span>Eridan</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="feferi">
+                                <span>Feferi</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Unda Canon Section -->
+                <section class="character-section">
+                    <div class="section-header" data-section="undaCanon">
+                        <span class="arrow">▼</span>
+                        <h2>Unda Canon</h2>
+                    </div>
+                    <div class="section-content" id="undaCanonContent">
+                        <div class="character-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="disciple">
+                                <span>Disciple</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="psiionic">
+                                <span>Psiionic</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="character-checkbox" data-character="signless">
+                                <span>Signless</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Site Links Section -->
+                <section class="site-links">
+                    <a href="#" class="link">How to use the translator</a>
+                    <a href="#" class="link">Download workskin</a>
+                    <a href="#" class="link">About the translator</a>
+                    <a href="#" class="link">Planned work on the translator</a>
+                    <a href="#" class="link">Disclaimers</a>
+                    <a href="#" class="link">FAQ</a>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>
+
