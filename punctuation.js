@@ -76,25 +76,53 @@ const capsChain = (input, index) => {
 };
 
 function capitalizeSentences(text) {
+    // Capitalize the first letter of each sentence WITHOUT rewriting punctuation.
+    //
+    // Why this exists:
+    // - The original implementation (kept below) split on '.', '!' and '?' and then
+    //   re-joined using '. ' and appended a final '.'.
+    // - That changes meaning/voice for several quirks (notably Signless/Disciple):
+    //   - '!' and '?' get turned into '.'
+    //   - ellipses '...' get collapsed into '.'
+    //   - spacing is normalized and a trailing '.' is forced even if the input didn't have one
+    //
+    // How this version works:
+    // - It DOES NOT split the string.
+    // - It finds letters that should start a sentence and uppercases them in-place,
+    //   preserving all existing punctuation and whitespace (including newlines).
+    // - It also avoids treating ellipses/runs like "..." as sentence boundaries by only
+    //   triggering on '.' when that dot is NOT preceded by another dot.
+    return text.replace(/(^|[!?]\s+|(?<!\.)\.\s+)([A-Za-z])/g, (match, prefix, letter) => {
+        return prefix + letter.toUpperCase();
+    });
+}
 
-    // Split the text into sentences 
-    // using regular expressions
+/*
+Original implementation (kept for reference):
+
+Problems it caused:
+- Replaces all sentence-ending punctuation with '.' because it re-joins using '. '.
+  Example: "Yes! ... see?" becomes "Yes. ... see."
+- Collapses ellipses: "well... and" becomes "well. and" (then gets re-spaced).
+- Forces a trailing '.' even if the user didn't type one.
+- Normalizes spacing after punctuation, which can change the "feel" of a quirk.
+
+function capitalizeSentences(text) {
+    // Split the text into sentences using regular expressions
     const sentences = text.split(/\.|\?|!/);
 
     // Capitalize the first letter of each sentence
     const capitalizedSentences = sentences
-        // Remove empty sentences
-        .filter(sentence =>
-            sentence.trim() !== '')
+        .filter(sentence => sentence.trim() !== '')
         .map(sentence =>
-            sentence.trim()[0]
-                .toUpperCase() +
-            sentence.trim().slice(1));
+            sentence.trim()[0].toUpperCase() + sentence.trim().slice(1)
+        );
 
     // Join the sentences back together
     return capitalizedSentences.join('. ') + '.';
 }
-//this capitalizeSentences converter borrowed from geeksforgeeks.org https://www.geeksforgeeks.org/javascript/javascript-program-to-capitalize-the-first-letter-of-every-sentence-in-a-string/
+*/
+//this original (now discarded) capitalizeSentences converter borrowed from geeksforgeeks.org https://www.geeksforgeeks.org/javascript/javascript-program-to-capitalize-the-first-letter-of-every-sentence-in-a-string/
 
 //even caps and odd caps functions capitalize every other letter in the input text, alternating between uppercase and lowercase. EvenCaps starts with uppercase and oddCaps starts with lowercase.
 function evenCaps(input) {
