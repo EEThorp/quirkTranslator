@@ -17,6 +17,7 @@ import {
     gamzeeTranslate,
     eridanTranslate,
     feferiTranslate,
+    mitunaTranslate,
     discipleTranslate,
     psiionicTranslate,
     signlessTranslate
@@ -60,6 +61,7 @@ const translators = {
     gamzee: gamzeeTranslate,
     eridan: eridanTranslate,
     feferi: feferiTranslate,
+    mituna: mitunaTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate
@@ -206,12 +208,28 @@ function handleCharacterSelection(e) {
    ======================================== */
 
 /**
- * Adds an output box for a character
- * Different characters have different output structures:
- * - Sollux: One output + variant checkboxes
- * - Gamzee: Two outputs (alternating caps) + sober checkbox
- * - Pun characters (Nepeta, Disciple, Equius, Eridan, Feferi): Two outputs (with/without puns) + optional start checkbox
- * - Others: Single output
+ * Adds an output box for a character selected in `index.html`.
+ *
+ * In this web UI, a "character" is driven by the `data-character="..."` value from the checkbox.
+ * That string must match a key in the `translators` object near the top of this file.
+ *
+ * Output layout patterns supported:
+ * - Standard characters: one output box (created via `createStandardOutput`).
+ * - **Sollux**: one output + variant checkboxes (blind / half-dead). See `createSolluxOutput`.
+ * - **Gamzee**: two outputs (alternating caps) + a "sober" toggle. See `createGamzeeOutput`.
+ * - **Pun characters** (Nepeta, Disciple, Equius, Eridan, Feferi): two outputs (with/without puns)
+ *   plus an optional character-specific toggle (e.g. start/end emotes). See `createPunCharacterOutput`.
+ * - **Mituna**: standard single output, but includes a note above the output because his
+ *   substitutions are probabilistic (running the same input multiple times can produce different output).
+ *
+ * Adding a new character:
+ * - Add translator logic + export in `quirk_translator_regex_fork.js`
+ * - Import it into this file and add it to the `translators` map
+ * - Add a checkbox in `index.html` with `data-character="<key>"` (must match the `translators` key)
+ * - If it needs unusual UI:
+ *   - Extra note text: add it in `addCharacterOutput` (see the Mituna note as an example)
+ *   - Extra toggles / multiple outputs: add a new `createXOutput` helper and hook it into the
+ *     "Special handling" branching below (or extend `punCharacters` if it's a pun variant character)
  */
 function addCharacterOutput(character) {
     const container = document.getElementById('outputContainer');
@@ -223,6 +241,14 @@ function addCharacterOutput(character) {
     const header = document.createElement('h3');
     header.textContent = character.charAt(0).toUpperCase() + character.slice(1);
     outputDiv.appendChild(header);
+
+    // Character-specific notes
+    if (character === 'mituna') {
+        const note = document.createElement('div');
+        note.className = 'output-note';
+        note.textContent = "Note: Mituna’s replacements are probabilistic (output may vary each run).";
+        outputDiv.appendChild(note);
+    }
     
     // Special handling for different character types
     if (character === 'sollux') {

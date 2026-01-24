@@ -294,6 +294,13 @@ header h1 {
     text-transform: capitalize;
 }
 
+.output-note {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: calc(var(--spacing-md) * -0.5);
+    margin-bottom: var(--spacing-md);
+}
+
 .output-text {
     background-color: var(--bg-light);
     border: 1px solid var(--border-color);

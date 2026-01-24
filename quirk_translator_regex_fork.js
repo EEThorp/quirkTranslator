@@ -607,6 +607,75 @@ const feferiTranslate = input => {
 console.log(feferiTranslate(input))
 console.log(feferiTranslate(seadwellerPunInput(input)))
 
+//canon Mituna translator, not to be confused with the Unda Canon Mituna translator.
+const mitunaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let mitunaArray = []
+    state.handleOmit ? mitunaArray = [""] : mitunaArray = ["TA: "]
+    // Converting input text to upper case (Mituna uses caps).
+    const upperInput = input.toUpperCase();
+
+    // Mituna's substitutions are probabilistic. Because each rule targets a distinct single
+    // character, we can process character-by-character and decide whether to replace.
+    // This guarantees exactly ONE output character per input character.
+    for (let i = 0; i < upperInput.length; i++) {
+        const ch = upperInput[i];
+        let out = ch;
+
+        switch (ch) {
+            // 100%
+            case 'O':
+                out = '0';
+                break;
+            case 'B':
+                out = '8';
+                break;
+
+            // 99%
+            case 'E':
+                out = (Math.random() < 0.99) ? '3' : ch;
+                break;
+
+            // 95%
+            case 'S':
+                out = (Math.random() < 0.95) ? '5' : ch;
+                break;
+            case 'I':
+                out = (Math.random() < 0.95) ? '1' : ch;
+                break;
+            case 'T':
+                out = (Math.random() < 0.95) ? '7' : ch;
+                break;
+
+            // punctuation probabilities
+            case '.':
+                out = (Math.random() < 0.30) ? ',' : ch;
+                break;
+            case '!':
+                out = (Math.random() < 0.20) ? '1' : ch;
+                break;
+            case '?':
+                out = (Math.random() < 0.15) ? '/' : ch;
+                break;
+
+            default:
+                out = ch;
+                break;
+        }
+
+        mitunaArray.push(out);
+    }
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="sollux">';
+        mitunaArray.unshift(textColour)
+        mitunaArray.push("</span>")
+    }
+    const mitunaOutput = mitunaArray.join("")
+    return mitunaOutput
+    }
+
+console.log(mitunaTranslate(input));
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -632,5 +701,6 @@ export {
     equiusTranslate,
     gamzeeTranslate,
     eridanTranslate,
-    feferiTranslate
+    feferiTranslate,
+    mitunaTranslate,
 };
