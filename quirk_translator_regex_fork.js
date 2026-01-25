@@ -607,6 +607,58 @@ const feferiTranslate = input => {
 console.log(feferiTranslate(input))
 console.log(feferiTranslate(seadwellerPunInput(input)))
 
+//canon kankri translator, identical to signless array at creation but separated to preserve from any alterations that unda canon signless may adopt
+const kankriTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let kankriArray = []
+    state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
+    let capitalizedText = capitalizeSentences(input)
+    //feeding result into bToSixRegex
+    let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
+    //Feeding bResult into oToNine regex
+    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    //feeding regComplete through the capsChain function to allow for kankri's rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
+    kankriArray.push(regComplete)
+    // adding workskin coding
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kankri">';
+        kankriArray.unshift(textColour)
+        kankriArray.push("</span>")
+    }
+    const kankriOutput = kankriArray.join("")
+    return kankriOutput
+}
+
+console.log(kankriTranslate(input))
+
+//canon kankri translator, identical to signless array at creation but separated to preserve from any alterations that unda canon signless may adopt
+const undaKankriTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let kankriArray = []
+    state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This Kankri may make errors in capitalising things, so proper form is not code-enforced
+    let bResult = input.replace(bToSixRegex, bToSixSubst)
+    //Feeding bResult into oToNine regex
+    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    //feeding regComplete through the capsChain function to allow for kankri's rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
+    kankriArray.push(regComplete)
+    // adding workskin coding
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kankri">';
+        kankriArray.unshift(textColour)
+        kankriArray.push("</span>")
+    }
+    const kankriOutput = kankriArray.join("")
+    return kankriOutput
+}
+
+console.log(undaKankriTranslate(input))
+
 
 //canon Mituna translator, not to be confused with the Unda Canon Mituna translator.
 const mitunaTranslate = input => {
@@ -750,6 +802,7 @@ export {
     signlessTranslate,
     discipleTranslate,
     undaMitunaTranslate,
+    undaKankriTranslate,
     
     // Character translators - Canon
     aradiaTranslate,
@@ -764,5 +817,6 @@ export {
     gamzeeTranslate,
     eridanTranslate,
     feferiTranslate,
+    kankriTranslate,
     mitunaTranslate,
 };
