@@ -21,7 +21,9 @@ import {
     discipleTranslate,
     psiionicTranslate,
     signlessTranslate,
-    undaMitunaTranslate
+    undaMitunaTranslate,
+    undaKankriTranslate,
+    kankriTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -62,11 +64,13 @@ const translators = {
     gamzee: gamzeeTranslate,
     eridan: eridanTranslate,
     feferi: feferiTranslate,
+    kankri: kankriTranslate,
     mituna: mitunaTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
-    mitunaUnda: undaMitunaTranslate
+    'kankri - Unda': undaKankriTranslate,
+    'mituna - Unda': undaMitunaTranslate
 };
 
 // Characters that use puns (will show two outputs: with and without puns)
@@ -245,6 +249,13 @@ function addCharacterOutput(character) {
     outputDiv.appendChild(header);
 
     // Character-specific notes
+    if (character === 'mituna - Unda') {
+        const note = document.createElement('div');
+        note.className = 'output-note';
+        note.textContent = "Note: Some of Mituna’s replacements are probabilistic (output may vary each run), this is less so than his canon variation.";
+        outputDiv.appendChild(note);
+    }
+
     if (character === 'mituna') {
         const note = document.createElement('div');
         note.className = 'output-note';
