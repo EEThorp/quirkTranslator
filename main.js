@@ -20,7 +20,8 @@ import {
     mitunaTranslate,
     discipleTranslate,
     psiionicTranslate,
-    signlessTranslate
+    signlessTranslate,
+    undaMitunaTranslate
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -64,7 +65,8 @@ const translators = {
     mituna: mitunaTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
-    signless: signlessTranslate
+    signless: signlessTranslate,
+    mitunaUnda: undaMitunaTranslate
 };
 
 // Characters that use puns (will show two outputs: with and without puns)

@@ -607,6 +607,7 @@ const feferiTranslate = input => {
 console.log(feferiTranslate(input))
 console.log(feferiTranslate(seadwellerPunInput(input)))
 
+
 //canon Mituna translator, not to be confused with the Unda Canon Mituna translator.
 const mitunaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -630,9 +631,13 @@ const mitunaTranslate = input => {
             case 'B':
                 out = '8';
                 break;
+            case 'A':
+                out = '4'
+                break;
 
             // 99%
             case 'E':
+                //The way the logic of this works is that for each less than 100% transformation, a matching case situation uses Math.random and asks if the result is less than the desired probability, if so it applies the transformation, if not it submits the original character (ch)
                 out = (Math.random() < 0.99) ? '3' : ch;
                 break;
 
@@ -676,6 +681,62 @@ const mitunaTranslate = input => {
 
 console.log(mitunaTranslate(input));
 
+const undaMitunaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let undaMitunaArray = []
+    state.handleOmit ? undaMitunaArray = [""] : undaMitunaArray = ["TA: "]
+    //converting to upper case
+    let upperInput = input.toUpperCase();
+    //unda's Mituna in emc2 onwards has a more stable and readable typing quirk, he adopts the doubled i's of Sollux and Psiionic but forgoes the wordplay on the word "two" and its variants. Punctuation typing errors are fewer than canon. B's are substituted for 6 like Signless does, E's are 3 as in canon and because of Disciple, o and l are 0 and 1 like psiionic. t, s, and a omit canon Mituna's transformations.
+    for (let i = 0; i < upperInput.length; i++) {
+        const ch = upperInput[i];
+        let out = ch;
+
+        switch (ch) {
+            // 100%
+            case 'O':
+                out = '0';
+                break;
+            case 'B':
+                out = '6';
+                break;
+            case 'E':
+                out = '3';
+                break;
+            case 'I':
+                out = 'II';
+                break;
+            case 'L':
+                out = '1';
+                break;
+            // punctuation probabilities
+            case '.':
+                out = (Math.random() < 0.05) ? ',' : ch;
+                break;
+            case '!':
+                out = (Math.random() < 0.08) ? '1' : ch;
+                break;
+            case '?':
+                out = (Math.random() < 0.15) ? '/' : ch;
+                break;
+
+            default:
+                out = ch;
+                break;
+        }
+        undaMitunaArray.push(out);
+    }
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="sollux">';
+        undaMitunaArray.unshift(textColour)
+        undaMitunaArray.push("</span>")
+    }
+    const undaMitunaOutput = undaMitunaArray.join("")
+    return undaMitunaOutput
+}
+
+console.log(undaMitunaTranslate(input))
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -688,6 +749,7 @@ export {
     psiionicTranslate,
     signlessTranslate,
     discipleTranslate,
+    undaMitunaTranslate,
     
     // Character translators - Canon
     aradiaTranslate,
