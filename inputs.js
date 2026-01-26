@@ -32,6 +32,10 @@ let workskinCode = false
 let discipleStart = true
 //flag for gamzee's sobriety, default is false.
 let gamzeeSober = false
+//flag for aradia's o > 0 substitution, default is true.
+let aradiaZero = true
+//flag for allowing aradia to use caps, default is false.
+let aradiaCaps = false
 
 // Mutable state object for web interface - allows dynamic updates
 // This object's properties can be modified from other modules
@@ -48,9 +52,11 @@ const state = {
     halQuirk: false,
     workskinCode: false,
     discipleStart: true,
-    gamzeeSober: false
+    gamzeeSober: false,
+    aradiaZero : true,
+    aradiaCaps : false
 };
 
 let workskinArr = ["black", "white", "aradia", "grownupshout", "dave", "sirendave", "athblue", "kankri", "dirk", "dad", "pipefan413", "equius", "eridan", "exile", "feferi", "gamzee", "jade", "jake", "jane", "roxy", "john", "kanaya", "karkat", "nepeta", "rose", "scratch-green", "scratch", "sollux", "strider", "tavros", "terezi", "calliope", "caliborn", "vriska", "felt", "karkatyell", "blacknarrate", "equiusout", "gamzeeout", "johnout", "blacknarrateout", "sirendaveout"]
 
-export { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart, gamzeeSober, workskinArr, state };
+export { userInput, defaultInput, input, workskinCustom, handleOmit, jadeComma, jakeComma, solluxBlind, solluxHalfDead, meowrailsStart, vriskaAngry, halQuirk, workskinCode, discipleStart, gamzeeSober, workskinArr, aradiaCaps, aradiaZero, state };

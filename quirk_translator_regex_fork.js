@@ -131,7 +131,7 @@ const signlessTranslate = input => {
     let oResult = bResult.replace(oToNineRegex, oToNineSubst)
     //adding the regex results to a completed regex variable, for easier transition to regular code.
     let regComplete = oResult
-    //feeding regComplete through the capsChain function to allow for Signless' rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
+    //pushing to array
     signlessArray.push(regComplete)
     // adding workskin coding
     if (state.workskinCode) {
@@ -181,11 +181,39 @@ const aradiaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let aradiaArray = []
     state.handleOmit ? aradiaArray = [""] : aradiaArray = ["AA: "]
-    //converting input text to lower case
-    let lowerInput = input.toLowerCase();
-    //feeding lowerInput text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators.
-    const oResult = lowerInput.replace(oRegex, oSubst);
-    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    //converting input text to lower case unless she's purposefully shouting
+    //creating a blank array for the output of the conversion.
+    let capsResult = []
+    if (state.aradiaCaps) {
+        for (let i = 0; i < input.length; i++) {
+            let isCap = /[A-Z]/.test(input[i] || "");
+            
+            if (isCap) {
+                // Check how many capitals are around this position
+                let capsNum = capsChain(input, i);
+                
+                // If there are 2+ capitals (current + at least one adjacent), keep it capital
+                if (capsNum >= 2) {
+                    capsResult.push(input[i].toUpperCase());
+                } else {
+                    // Isolated capital becomes lowercase
+                    capsResult.push(input[i].toLowerCase());
+                }
+            } else {
+                //keep lowercase
+                capsResult.push(input[i].toLowerCase());
+            }
+        }
+    } else {        
+    capsResult.push(input.toLowerCase());
+}
+    //accounting for the results of her 0 conversion being on or not.
+    let oResult
+    if (state.aradiaZero) {
+        oResult = capsResult.join("").replace(oRegex, oSubst)
+        } else { 
+        oResult = capsResult.join("");
+        };
     let regComplete = oResult
     //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
     for (let i = 0; i < regComplete.length; i++) {
