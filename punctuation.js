@@ -168,4 +168,31 @@ function oddCaps(input) {
 
 //console.log(oddCaps(input))
 
-export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps };
+//global version of removing isolated caps, to replace the repeated use in individual translators
+const removeIsolatedCaps = (input) => {
+    let result = [];
+    
+    for (let i = 0; i < input.length; i++) {
+        let isCap = /[A-Z]/.test(input[i] || "");
+        
+        if (isCap) {
+            // Check how many capitals are around this position
+            let capsNum = capsChain(input, i);
+            
+            // If there are 2+ capitals (current + at least one adjacent), keep it capital
+            if (capsNum >= 2) {
+                result.push(input[i].toUpperCase());
+            } else {
+                // Isolated capital becomes lowercase
+                result.push(input[i].toLowerCase());
+            }
+        } else {
+            // Keep lowercase
+            result.push(input[i].toLowerCase());
+        }
+    }
+    
+    return result.join("");
+}
+
+export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps };
