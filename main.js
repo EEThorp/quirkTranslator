@@ -256,6 +256,13 @@ function addCharacterOutput(character) {
         outputDiv.appendChild(note);
     }
 
+    if (character === 'aradia') {
+    const note = document.createElement('div');
+    note.className = 'output-note';
+    note.textContent = "Aradiabot and Aradiasprite can both use caps in otherwise lowercase text, tick the caps box to permit this. Pre ascension Aradia converts o to 0, tick to turn this off for post ascension Aradia.";
+    outputDiv.appendChild(note);
+}
+
     if (character === 'mituna') {
         const note = document.createElement('div');
         note.className = 'output-note';
@@ -266,6 +273,8 @@ function addCharacterOutput(character) {
     // Special handling for different character types
     if (character === 'sollux') {
         createSolluxOutput(outputDiv, character);
+    } else if (character === 'aradia') {
+        createAradiaOutput(outputDiv, character);
     } else if (character === 'gamzee') {
         createGamzeeOutput(outputDiv, character);
     } else if (punCharacters[character]) {
@@ -327,6 +336,30 @@ function createSolluxOutput(container, character) {
     
     variantDiv.appendChild(blindLabel);
     variantDiv.appendChild(halfDeadLabel);
+    container.appendChild(variantDiv);
+}
+
+function createAradiaOutput(container, character) {
+    const outputText = document.createElement('div');
+    outputText.className = 'output-text';
+    outputText.id = `output-text-${character}`;
+    container.appendChild(outputText);
+    
+    const variantDiv = document.createElement('div');
+    variantDiv.className = 'variant-options';
+    
+    const capsLabel = createCheckboxLabel('aradia-caps', 'Aradia caps', (e) => {
+        state.aradiaCaps = e.target.checked;
+        updateCharacterTranslation(character);
+    }, false);
+    
+    const zeroLabel = createCheckboxLabel('aradia-zero', 'Aradia zero (o > 0)', (e) => {
+        state.aradiaZero = e.target.checked;
+        updateCharacterTranslation(character);
+    }, true);
+    
+    variantDiv.appendChild(capsLabel);
+    variantDiv.appendChild(zeroLabel);
     container.appendChild(variantDiv);
 }
 

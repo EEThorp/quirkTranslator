@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homestuck Text Translator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Header -->
+        <header>
+            <h1>Homestuck text translator</h1>
+        </header>
+
+        <div class="main-layout">
+            <!-- Left Column: Input and Output -->
+            <div class="left-column">
+                <section class="text-content">
+                    <h2>About the translators</h2>
+                    <p>Each of the translators takes your input and applies a preset list of rules to transform the inputted text and then produces an output. The rules for each character are broadly in line with what is seen in the canon text and what is listed on the wiki. Some transformations are simply not possible or practical to code in. Below you will find a list of what transformations will occur with each character. As a disclaimer, some characters have capitalisation enforcement, e.g.capitals at the start of each sentence, no random capitals unless in a group to account for yelling. This will unfortunately result in capitalisation for proper nouns being removed e.g. "I greet Ms. Leijon without issuing a statement of a%ion in the first person" is perfectly correct, but the translator will produce "I greet ms Leijon without issuing a statement of a%ion in the first person". Relatedly, for characters that don't use punctuation (such as how Equius does not use terminal punctuation) this may be omitted when it should be kept. In the stated example above, the period is removed as this is terminal punctuation, however it's not being used as terminal punctuation. This may also disrupt typed emotes, however these edge cases are used far less frequently and I reccomend that you add these in post translation yourself.</p>
+                    <h3><strong>Canon characters</strong></h3>
+                    <p>Translators that comply with canon text, as much as possible. Note that some characters, such as ancestors, appear only in the Unda Canon as there is so little of their text (if any) that translation rules are more fanon than canon.</p>
+                    <div class="character-info"><h3>Aradia</h3>
+                    <p>Aradia's text is converted all to lower case, if the checkbox is ticked to allow caps then she will have her text changed to lower case unless it is several characters in a row that are capitalised. This permits her rare use of caps, but can be toggled on and off. There is a similar optional transformation to turn "o" and "O" into "0" which can be toggled at will. Aradia's text is then scrubbed of punctuation that she doesn't use: "",", ".", "?", ";", "'"</p></div>
+                    <div class="character-info"><h3>Tavros</h3>
+                    <p>Tavros's text is first converted to upper case and then character at the beginning of sentences are changed to lowercase. Then all terminal punctuation "." "!" and "?" are converted into commas.</p></div>
+                    <div class="character-info"><h3>Sollux</h3>
+                    <p>Sollux has multiple variations, his standard translation, the blind version, and then the half-dead version. All of his versions undergo caps enforcement before being further translated as capital letters converted to numbers won't read as a string of capitals and words like "TEST" can be incorrectly converted to "TE2t", thus the caps conversion that allows shouting is done first.</p>
+                    <ul><li><strong>Standard: </strong>The standard Sollux output makes the following translations:
+                        <li>"to" and "too" as isolated words become "two", this will not turn "tone" into "twone".</li>
+                        <li>"into" becomes "intwo" as an isolated word, will not to "intone" into "intwone".</li>
+                        <li>"today" "tomorrow" "together" and "tonight" all get converted to their two form if they are a whole word, or if the character after them is punctuation. This is to allow for "twomorrow's" type exceptions.</li>
+                        <li>"s" and "S" are converted to "2".</li>
+                        <li>"i" and "I" are doubled.</li>
+                    </li>
+                    <li><strong>Blind: </strong> Blind Sollux takes the input text and replaces "o" and "O" with "0".</li>
+                    <li><strong>Half Dead: </strong> Half dead Sollux also converts his "o"'s into "0"'s but he does this only for every even numbered "o". </li></ul></div>
+                    <div class="character-info"><h3>Karkat</h3>
+                    <p>Karkat's text is converted into uppercase.</p></div>
+                    <div class="character-info"><h3>Nepeta</h3>
+                    <p>Nepeta has the option of beginning her messages with her matching little moirail emote that joins with Equius's, this can be included or excluded. Nepeta's text is caps corrected to be primarily lowercase but allowing for instances of uppercase shouting, and instances of "ee" are converted to "33", however this will only happen in multiples of two as to reflect the double lusus mouth (:33) so converting this "ee eee eeee" will return "33 33e 3333". She then has the following punctuation removed: ",", ".", "'" in line with her canon useage.</p></div>
+                    <div class="character-info"><h3>Kanaya</h3>
+                    <p>Kanaya's text is first converted to lowercase and then the first letter of each word is converted to uppercase. She then has all forms of punctuation removed.</p></div>
+                    <div class="character-info"><h3>Terezi</h3>
+                    <p>Terezi's text is first converted into all upper case. The following transformations are then applied:</p>
+                    <ul>
+                        <li>"A" is converted to "4".</li>
+                        <li>"I" is converted to "1".</li>
+                        <li>"E" is converted to "3". These three are a nod to the blind prophets numbers.</li>
+                        <li>The following punctuation is removed: ".", ",", "'"</li>
+                    </ul></div>
+                    <div class="character-info"><h3>Vriska</h3>
+                    <p>Vriska's text is converted to produce sentences that start with capital letters, permit bouts of yelling in all caps, and removes errant capitals that might be scattered in. This is done before her pun replacements starts. Her properly formatted text is checked against a list of hundreds of possible pun-based substitutions, where the number "8" is substituted for both the letter "b" in any case, and any word that rhymes with "eight/ate". You may come up with puns that I have not thought of, or you may find that some don't scan due to differences in accent. Feel free to amend these yourself afterwards.</p></div>
+                    <div class="character-info"><h3>Equius</h3>
+                    <p>Equius's messages have a toggled option to include his matching moirail emote to Nepeta's at the start of his messages. Equius' text uses </p></div>
+                    <div class="character-info"><h3>Gamzee</h3>
+                    <p></p></div>
+                    <div class="character-info"><h3>Eridan</h3>
+                    <p></p></div>
+                    <div class="character-info"><h3>Feferi</h3>
+                    <p></p></div>
+                    <div class="character-info"><h3>Kankri</h3>
+                    <p></p></div>
+                    <div class="character-info"><h3>Mituna</h3>
+                    <p></p></div>
+                </p>
+                    <h3><strong>Unda Canon characters</strong></h3>
+                    <p>Translators adapted to typing quirks unique to Unda's work.</p>
+                    <div class="character-info"><h3>Disciple</h3>
+                    <p>Disciple has a toggle option to allow her text to be bracketed with her partner's signs and respective colours, as seen in Unda works. Her text is capitalised at the beginning of her sentences, other caps use is preserved outside of this. Uses of "ee" or "EE" will be convered to "33", however this will only happen in multiples of two as to reflect the double lusus mouth (:33) so converting this "ee eee eeee" will return "33 33e 3333".</p></div>
+
+                    <div class="character-info"><h3>Psiionic</h3>
+                    <p>Psiionic's text is all converted to lowercase and then the first letter of each sentence is then capitalised. Then his text is mutated to allow for two-based-puns and number substitutions:</p>
+                    <ul>
+                        <li>"to" and "too" as isolated words become "two", this will not turn "tone" into "twone".</li>
+                        <li>"into" becomes "intwo" as an isolated word, will not to "intone" into "intwone".</li>
+                        <li>"today" "tomorrow" "together" and "tonight" all get converted to their two form if they are a whole word, or if the character after them is punctuation. This is to allow for "twomorrow's" type exceptions.</li>
+                        <li>Instances of the letter "s" are converted to the number 2.</li>
+                        <li>Instances of the letter "i" are doubled.</li>
+                        <li>The letters "l" and "o" are converted to "1" and "0" as a nod to binary.</li>
+                        <li>Psiionic omits the following punctuation marks "," ";" and ":"</li>
+                    </ul></div>                    
+                    <div class="character-info"><h3>Signless</h3>
+                    <p>Signless has the first letter of each sentence capitalised, but does not have any other enforced capitalisation rules, as to allow for the rare vast expletive and acronyms. Punctuation is unmodified but should be written as standard. He has two text replacements:</p>
+                <ul><li>"b" and "B" are convered to "6".</li>
+                    <li>"o" and "O" are converted to "9"</li></ul></div>
+                    <div class="character-info"><h3>Kankri</h3>
+                    <p></p></div>
+                    <div class="character-info"><h3>Mituna</h3>
+                    <p></p></div>
+                </section>
+            </div>
+
+            <!-- Right Column: Character Selection and Links -->
+            <div class="right-column">
+                <!-- Site Links Section -->
+                <section class="site-links">
+                    <a href="/index.html" class="link">Translate</a>
+                    <a href="#" class="link">How to use the translator</a>
+                    <a href="#" class="link">Download workskin</a>
+                    <a href="#" class="link">Planned work on the translator</a>
+                    <a href="#" class="link">Disclaimers</a>
+                    <a href="#" class="link">FAQ</a>
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+

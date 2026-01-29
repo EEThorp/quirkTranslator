@@ -93,6 +93,56 @@ header h1 {
     margin-bottom: var(--spacing-md);
 }
 
+.text-content {
+    background-color: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    max-width: 900px;
+}
+/* Headings inside text-content */
+.text-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.text-content h3 {
+    font-size: 1.3rem;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+/* Paragraphs inside text-content */
+.text-content p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+/* Lists inside text-content */
+.text-content ul {
+    margin-left: var(--spacing-xl); /* Indents the list */
+    margin-bottom: var(--spacing-md);
+    padding-left: 0;
+}
+
+.text-content li {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+.character-info {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.character-info:last-child {
+    border-bottom: none;
+}
+
 #userInput {
     flex: 1;
     min-height: 120px;
