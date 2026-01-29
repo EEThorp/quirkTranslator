@@ -467,6 +467,7 @@ const equiusTranslate = input => {
     if (state.meowrailsStart) {
         equiusArray.push("D --> ")
     }
+
     //removing isolated capitals
     let capsResult = removeIsolatedCaps(input)
     //capitalising sentences
@@ -594,8 +595,11 @@ const feferiTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let feferiArray = []
     state.handleOmit ? feferiArray = [""] : feferiArray = ["CC: "]
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(input);
+    const capitalizedText = capitalizeAtIndices(input, capsLocationArray)
     //feeding input through regex translators
-    const hResult = input.replace(hRegex, hSubst)
+    const hResult = capitalizedText.replace(hRegex, hSubst)
     const eResult = hResult.replace(capERegex, capESubst)
     const regComplete = eResult
     feferiArray.push(regComplete)
