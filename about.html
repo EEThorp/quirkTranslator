@@ -63,19 +63,36 @@
                     <li>Terminal punctuation (".", "!", "?") is removed from Equius's text. This will overcorrect in instances when terminal punctuation is not being used as terminal punctuation, such as using periods in acronyms or forms of address "e.g.", "Ms. Lejion", this will need to be added back in after translation manually.</li></ul></div>
                     <div class="character-info"><h3>Gamzee</h3>
                     <p>Gamzee's text translator has two boxes for the two variations of his typing quriks, as well as a checkbox for his sober status, producing four possible translation outputs. Sometimes Hussie wrote Gamzee alternating his high typing quirk between starting with a lowercase or an uppercase, especially in messages that followed each other without another character interrupting (see his early conversations with Karkat). However, sometimes this isn't the case (see his first messages with Dave). The variations are there so you can choose which you want. In his sober state, Gamzee alternates between one message in lowercase and the next in uppercase, beginning new conversations in lowercase and then alternating one after another, not resetting when others reply.</p>
-                    <li><strong>high </strong>- Caps alternate, ignoring punctuation and spaces. Begins on a captial letter.</li>
-                    <li><strong>high</strong>- Caps alternate, ignoring punctuation and spaces. Begins on a lowercase letter.</li>
-                    <li><strong>sober </strong>- all lowercase.</li>
-                    <li><strong>sober </strong>- all uppercase.</li></div>
+                    <ul><li><strong>1 high </strong>- Caps alternate, ignoring punctuation and spaces. Begins on a captial letter.</li>
+                    <li><strong>2 high</strong>- Caps alternate, ignoring punctuation and spaces. Begins on a lowercase letter.</li>
+                    <li><strong>1 sober </strong>- all lowercase.</li>
+                    <li><strong>2 sober </strong>- all uppercase.</li></ul></div>
                     <div class="character-info"><h3>Eridan</h3>
-                    <p>Eridan has a pun and non-pun output, these are run before any other text transformation takes place. There are approximately 113 seadweller puns that can be made, though you may wish to discard some due to frequency. his text then goes through the following transformations:</p>
-                    <ul><li>Text is put through the "ing translator", this is a list of approximately 157 unique word replacements and their case variations. This removes the "g" and the end of "ing" ending words where appropriate, typically when used as a suffix, but not always. So "sing" won't be modified but "singing" will be converted to "singin". This explicitly covers words that fall under the seadweller pun list.</li></ul></div>
+                    <p>Eridan has a pun and non-pun output, these are run before any other text transformation takes place. There are approximately 113 seadweller puns that can be made, though you may wish to discard some due to frequency as Eridan doesn't pun as much as the other seadwellers. His text then goes through the following transformations:</p>
+                    <ul><li>Text is put through the "ing translator", this is a list of approximately 157 unique word replacements and their case variations. This removes the "g" and the end of "ing" ending words where appropriate, typically when used as a suffix, but not always. So "sing" won't be modified but "singing" will be converted to "singin". This explicitly covers words that fall under the seadweller pun list.</li>
+                    <li>His text is filtered through a series of translators that turn "want to" into "wanna" and "going to" into "gonna", these account for case.</li>
+                    <li>Instances of "w" and "v" are doubled, however this is done in a case sensitive manner so "Where? WHAT!" will be translated into "Wwhere? WWHAT!" instead of ending up with "WWhere? WWHAT?".</li></ul></div>
                     <div class="character-info"><h3>Feferi</h3>
-                    <p></p></div>
+                    <p>Feferi has a pun and non-pun output, these are run before any other text transformation takes place. There are approximately 113 seadweller puns that can be made. Feferi uses standard capitalisation rules, so the beginning of her sentences are capitalised. The following transformations are then applied: </p>
+                    <ul><li>"h" and "H" are replaced with "".</li>
+                    <li>"E" is replaced with "-E". This allows Feferi to use lowercase e's normally but also make uppercase e's resemble her trident. If you want to make the trident longer for emphasis, you can add more hypens yourself. E.g. "HER----E" becoming ")(-ER-----E"</li></ul></div>
                     <div class="character-info"><h3>Kankri</h3>
-                    <p></p></div>
+                    <p>Kankri's text is converted to produce sentences that start with capital letters, permit very rare bouts of yelling in all caps, and removes errant capitals that might be scattered in. He then has two transformations applied to his text: </p>
+                    <ul><li>"B/b" is converted to "6".</li>
+                    <li>"O/o" is converted to "0".</li></ul></div>
                     <div class="character-info"><h3>Mituna</h3>
-                    <p></p></div>
+                    <p>Mituna's translation is probability based, as most of the typing rules that he follows are only applied some of the time (presumably due to typos). He does often textually lisp in his writing, but this too is done sporadically. There was no way to add typos in and keep the text intelligible, so any typos or random character additions will need to be added in to the original input text. Mituna's input text is converted to all upper case and then the following rules are applied, I'll note what the transformation is and the probability of it happening. The way this works is that each character is checked in turn, if it is a character that has a transformation rule, a random number between 0-100 will be generated and if that number is higher than the threshhold for that tranformation, then it will be changed. The thresholds were set by looking at the amount of variation between the same character e.g. how many times was "E" written as "3" and how many times was it left as "E"? The result of this is that you can translate the same sentence multiple times and get slightly different results. Here are the transformations:</p>
+                    <ul><li>"O" becomes "0" 100%</li>
+                    <li>"B" becomes "8" 100%</li>
+                    <li>"A" becomes "4" 100%</li>
+                    <li>"E" becomes "3" 99%</li>
+                    <li>"S" becomes "5" 95%</li>
+                    <li>"I" becomes "1" 95%</li>
+                    <li>"T" becomes "7" 95%</li>
+                    <li>"." becomes "," 30%</li>
+                    <li>"!" becomes "1" 20%</li>
+                    <li>"?" becomes "/" 15%</li></ul>
+                    </div>
                 </p>
                     <h3><strong>Unda Canon characters</strong></h3>
                     <p>Translators adapted to typing quirks unique to Unda's work.</p>
@@ -98,9 +115,20 @@
                 <ul><li>"b" and "B" are convered to "6".</li>
                     <li>"o" and "O" are converted to "9"</li></ul></div>
                     <div class="character-info"><h3>Kankri</h3>
-                    <p></p></div>
+                    <p>Kankri's text has no capitalisation enforcement, allowing for capitalisation errors for use when he's younger. He then has the same two transformations as his canon counterpart applied to his text: </p>
+                    <ul><li>"B/b" is converted to "6".</li>
+                    <li>"O/o" is converted to "0".</li></ul></p></div>
                     <div class="character-info"><h3>Mituna</h3>
-                    <p></p></div>
+                    <p>Unda's version of Mituna has a slightly edited version of the canon typing quirk, with the aim of making it more stable, readable, and incorporates a little of his parent's typing quirks as well. He can still be prone to typos, but the probability aspects of his typing quirk have been narrowed down to just his punctuation, and the odds of those typos are lowered compared to canon Mituna. Like his canon counterpart, his text is all uppercase. Here are the transformations:</p>
+                    <ul><li>"O" becomes "0" 100%</li>
+                    <li>"B" becomes "6" 100% (this is borrowed from Signless)</li>
+                    <li>"E" becomes "3" 100% (both a canon converstion but also Disciple does the same for doubled e's.)</li>
+                    <li>"I" becomes "II" 100% (borrowed from Psiionic and Sollux)</li>
+                    <li>"L" becomes "1" 100% (borrowed from Psiionic)</li>
+                    <li>"." becomes "," 5%</li>
+                    <li>"!" becomes "1" 8%</li>
+                    <li>"?" becomes "/" 15%</li></ul>
+                    </p></div>
                 </section>
             </div>
 
@@ -110,7 +138,7 @@
                 <section class="site-links">
                     <a href="/index.html" class="link">Translate</a>
                     <a href="#" class="link">How to use the translator</a>
-                    <a href="#" class="link">Download workskin</a>
+                    <a href="/workskin.txt" download class="link">Download workskin</a>
                     <a href="#" class="link">Planned work on the translator</a>
                     <a href="#" class="link">Disclaimers</a>
                     <a href="#" class="link">FAQ</a>

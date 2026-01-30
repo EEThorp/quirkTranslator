@@ -620,8 +620,12 @@ const kankriTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let kankriArray = []
     state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
+    //removing isolated capitals
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
     // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
-    let capitalizedText = capitalizeSentences(input)
     //feeding result into bToSixRegex
     let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
     //Feeding bResult into oToNine regex
