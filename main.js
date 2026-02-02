@@ -23,6 +23,7 @@ import {
     signlessTranslate,
     undaMitunaTranslate,
     undaKankriTranslate,
+    undaHalTranslate,
     kankriTranslate,
 } from './quirk_translator_regex_fork.js';
 
@@ -70,7 +71,8 @@ const translators = {
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
     'kankri - Unda': undaKankriTranslate,
-    'mituna - Unda': undaMitunaTranslate
+    'mituna - Unda': undaMitunaTranslate,
+    'hal - Unda' : undaHalTranslate
 };
 
 // Characters that use puns (will show two outputs: with and without puns)
@@ -277,6 +279,8 @@ function addCharacterOutput(character) {
         createAradiaOutput(outputDiv, character);
     } else if (character === 'gamzee') {
         createGamzeeOutput(outputDiv, character);
+    } else if (character === 'hal - Unda') {
+        createHalOutput(outputDiv, character)
     } else if (punCharacters[character]) {
         createPunCharacterOutput(outputDiv, character);
     } else {
@@ -388,6 +392,24 @@ function createGamzeeOutput(container, character) {
     });
     
     variantDiv.appendChild(soberLabel);
+    container.appendChild(variantDiv);
+}
+
+//create hal output - checkbox for typing quirk based styling
+function createHalOutput(container, character) {
+    const outputText = document.createElement('div');
+    outputText.className = 'output-text';
+    outputText.id = `output-text-${character}`;  
+    container.appendChild(outputText);
+
+    const variantDiv = document.createElement('div');
+    variantDiv.className = 'variant-options';
+
+    const quirkLabel = createCheckboxLabel('hal-quirk', 'Hal eye-based typing style quirk', (e) => {
+        state.halQuirk = e.target.checked;
+        updateCharacterTranslation(character)
+    }, false);
+    variantDiv.appendChild(quirkLabel);
     container.appendChild(variantDiv);
 }
 
