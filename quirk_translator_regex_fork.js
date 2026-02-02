@@ -812,27 +812,31 @@ const undaHalTranslate = input => {
     const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
     if (state.halQuirk) {
         //joining array for regex filters
-        const joinedArr = capitalizedText.join("")
-        const upperIResult = joinedArr.replace(upperIRegex, upperISubst);
+        const upperIResult = capitalizedText.replace(upperIRegex, upperISubst);
         const lowerIResult = upperIResult.replace(lowerIRegex, lowerISubst);
         const lowerEyeResult = lowerIResult.replace(lowerEyeRegex, lowerEyeSubst);
         const properEyeResult = lowerEyeResult.replace(properEyeRegex, properEyeSubst);
         const upperEyeResult = properEyeResult.replace(upperEyeRegex, upperEyeSubst);
         halArray.push(upperEyeResult)
-        if (state.workskinCode) {
+/*         if (state.workskinCode) {
             let textColour = state.workskinCustom || '<span class="black">';
             halArray.unshift(textColour)
             halArray.push("</span>")
-        }
+            const halOutput = halArray.join("")
+            return halOutput
+        } */
     } else {
-        halArray.push(capitalizedText)
-        if (state.workskinCode) {
-            let textColour = state.workskinCustom || '<span class="black">';
-            halArray.unshift(textColour)
-            halArray.push("</span>")
-        }
+    halArray.push(capitalizedText)
     }
-}
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="black">';
+        halArray.unshift(textColour)
+        halArray.push("</span>")
+        
+        }
+    const halOutput = halArray.join("")
+    return halOutput}
+
 
 console.log(undaHalTranslate(input))
 

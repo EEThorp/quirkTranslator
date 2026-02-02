@@ -407,8 +407,9 @@ function createHalOutput(container, character) {
 
     const quirkLabel = createCheckboxLabel('hal-quirk', 'Hal eye-based typing style quirk', (e) => {
         state.halQuirk = e.target.checked;
-        updateCharacterTranslation(character)
+        updateCharacterTranslation(character);
     }, false);
+    
     variantDiv.appendChild(quirkLabel);
     container.appendChild(variantDiv);
 }

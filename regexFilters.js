@@ -148,13 +148,13 @@ const upperISubst = `</span><span class="kankri">I</span><span class="black">`;
 const lowerIRegex = new RegExp(/i/gm);
 const lowerISubst = `</span><span class="kankri">i</span><span class="black">`;
 //adds red formatting to lowercase eye as a whole word, returns black after.
-const lowerEyeRegex = new RegExp('/eye\b/');
+const lowerEyeRegex = new RegExp(/\beye\b/g);
 const lowerEyeSubst = `</span><span class=\"kankri\">eye</span><span class=\"black\">`;
 //adds red formatting to proper capital Eye as a whole word, returns black after.
-const properEyeRegex = new RegExp('/Eye\b/');
+const properEyeRegex = new RegExp(/\bEye\b/g);
 const properEyeSubst = `</span><span class=\"kankri\">Eye</span><span class=\"black\">`;
 //adds red formatting to uppercase eye as a whole word, returns black after.
-const upperEyeRegex = new RegExp('/EYE\b/');
+const upperEyeRegex = new RegExp(/\bEYE\b/g);
 const upperEyeSubst = `</span><span class=\"kankri\">EYE</span><span class=\"black\">`;
 
 export { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, letterRegex, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, periodToCommaRegex, periodToCommaSubst, exclamationToOneRegex, exclamationToOneSubst, questionToSlashRegex, questionToSlashSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst};
