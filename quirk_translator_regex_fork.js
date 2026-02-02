@@ -9,7 +9,7 @@ import { ingConverter } from './ingConverter.js';
 
 console.log(`Default input text: ${input}`)
 
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps } from './punctuation.js';
 
@@ -801,6 +801,45 @@ const undaMitunaTranslate = input => {
 
 console.log(undaMitunaTranslate(input))
 
+const undaHalTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let halArray = []
+    state.handleOmit ? halArray = [""] : halArray = ["AT: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
+    if (state.halQuirk) {
+        //joining array for regex filters
+        const upperIResult = capitalizedText.replace(upperIRegex, upperISubst);
+        const lowerIResult = upperIResult.replace(lowerIRegex, lowerISubst);
+        const lowerEyeResult = lowerIResult.replace(lowerEyeRegex, lowerEyeSubst);
+        const properEyeResult = lowerEyeResult.replace(properEyeRegex, properEyeSubst);
+        const upperEyeResult = properEyeResult.replace(upperEyeRegex, upperEyeSubst);
+        halArray.push(upperEyeResult)
+/*         if (state.workskinCode) {
+            let textColour = state.workskinCustom || '<span class="black">';
+            halArray.unshift(textColour)
+            halArray.push("</span>")
+            const halOutput = halArray.join("")
+            return halOutput
+        } */
+    } else {
+    halArray.push(capitalizedText)
+    }
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="black">';
+        halArray.unshift(textColour)
+        halArray.push("</span>")
+        
+        }
+    const halOutput = halArray.join("")
+    return halOutput}
+
+
+console.log(undaHalTranslate(input))
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -815,6 +854,7 @@ export {
     discipleTranslate,
     undaMitunaTranslate,
     undaKankriTranslate,
+    undaHalTranslate,
     
     // Character translators - Canon
     aradiaTranslate,
