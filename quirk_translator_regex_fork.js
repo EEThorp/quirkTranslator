@@ -6,6 +6,8 @@ import { horsePuns } from './horsePuns.js';
 import { catPuns } from './catPuns.js';
 import { seadwellerPuns } from './seadwellerPuns.js';
 import { ingConverter } from './ingConverter.js';
+import { trollCurseFiltered } from './trollCurses.js';
+import { trollHumanCurseFiltered} from './trollHumanCurses.js';
 
 console.log(`Default input text: ${input}`)
 
@@ -60,6 +62,31 @@ let ingConverterInput = input => {
     let result = input;
     for (const [word, replacement] of ingConverter) {
         const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+//converts input to input with generic and troll specific swearing censored, but omits human specific.
+let trollCurseInput = input => {
+    let result = input;
+    for (const [word, replacement] of trollCurseFiltered) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+
+//converts input to input with generic and troll specific swearing censored, but omits human specific.
+let trollHumanCurseInput = input => {
+    let result = input;
+    for (const [word, replacement] of trollHumanCurseFiltered) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
         const regex = new RegExp(`\\b${escaped}\\b`, 'g');
         result = result.replace(regex, replacement);
     }
@@ -840,6 +867,39 @@ const undaHalTranslate = input => {
 
 console.log(undaHalTranslate(input))
 
+const rufiohTranslate = input => {
+    // Create TWO separate arrays for two outputs
+    let rufiohArray1 = []
+    let rufiohArray2 = []
+    state.handleOmit ? rufiohArray1 = [""] : rufiohArray1 = ["AT: "];
+    state.handleOmit ? rufiohArray2 = [""] : rufiohArray2 = ["AT: "];
+
+    // Apply troll only curse filtering to input for version 1
+    let trollCensored = trollCurseInput(input);
+    let capsResult1 = removeIsolatedCaps(trollCensored);
+    let iResult1 = capsResult1.replace(iToOneRegex, iToOneSubst);
+    rufiohArray1.push(iResult1);
+    
+    // Apply troll and human curse filtering to input for version 2
+    let trollHumanCensored = trollHumanCurseInput(input);
+    let capsResult2 = removeIsolatedCaps(trollHumanCensored);
+    let iResult2 = capsResult2.replace(iToOneRegex, iToOneSubst);
+    rufiohArray2.push(iResult2);
+    
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="tavros">';
+        rufiohArray1.unshift(textColour)
+        rufiohArray2.unshift(textColour)
+        rufiohArray1.push("</span>")
+        rufiohArray2.push("</span>")
+    }
+    // Join both arrays and return with newline separator so they'll go to each textbox
+    const rufiohOutput = `${rufiohArray1.join("")}\n${rufiohArray2.join("")}`
+    return rufiohOutput
+}
+
+console.log(rufiohTranslate(input))
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -847,6 +907,8 @@ export {
     horsePunInput,
     seadwellerPunInput,
     ingConverterInput,
+    trollCurseInput,
+    trollHumanCurseInput,
     
     // Character translators - Unda Canon
     psiionicTranslate,
@@ -871,4 +933,5 @@ export {
     feferiTranslate,
     kankriTranslate,
     mitunaTranslate,
+    rufiohTranslate,
 };

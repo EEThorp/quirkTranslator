@@ -54,7 +54,8 @@ const state = {
     discipleStart: true,
     gamzeeSober: false,
     aradiaZero : true,
-    aradiaCaps : false
+    aradiaCaps : false,
+    trollHumanCurse : false
 };
 
 let workskinArr = ["black", "white", "aradia", "grownupshout", "dave", "sirendave", "athblue", "kankri", "dirk", "dad", "pipefan413", "equius", "eridan", "exile", "feferi", "gamzee", "jade", "jake", "jane", "roxy", "john", "kanaya", "karkat", "nepeta", "rose", "scratch-green", "scratch", "sollux", "strider", "tavros", "terezi", "calliope", "caliborn", "vriska", "felt", "karkatyell", "blacknarrate", "equiusout", "gamzeeout", "johnout", "blacknarrateout", "sirendaveout"]
