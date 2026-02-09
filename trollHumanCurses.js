@@ -1,7 +1,6 @@
 //curse filter, troll and human, including censoring not that bad words
 
-const trollHumanCurseData = `
-anal	*nal
+const trollHumanCurseData = `anal	*nal
 anilingus	*nilingus
 anus	an*s
 apeshit	*peshit

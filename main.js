@@ -25,12 +25,15 @@ import {
     undaKankriTranslate,
     undaHalTranslate,
     kankriTranslate,
+    rufiohTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
     catPunInput,
     horsePunInput,
-    seadwellerPunInput
+    seadwellerPunInput,
+    trollCurseInput,
+    trollHumanCurseInput
 } from './quirk_translator_regex_fork.js';
 
 import { workskinArr, state } from './inputs.js';
@@ -72,7 +75,8 @@ const translators = {
     signless: signlessTranslate,
     'kankri - Unda': undaKankriTranslate,
     'mituna - Unda': undaMitunaTranslate,
-    'hal - Unda' : undaHalTranslate
+    'hal - Unda' : undaHalTranslate,
+    rufioh: rufiohTranslate
 };
 
 // Characters that use puns (will show two outputs: with and without puns)
@@ -271,6 +275,13 @@ function addCharacterOutput(character) {
         note.textContent = "Note: Mituna’s replacements are probabilistic (output may vary each run).";
         outputDiv.appendChild(note);
     }
+
+    if (character === 'rufioh') {
+    const note = document.createElement('div');
+    note.className = 'output-note';
+    note.textContent = "Rufioh censors his text, the default option is for him to just censor general and troll-specific profanity. If you want to also filter for human profanity (generally relating to human body parts), the second box will include this.";
+    outputDiv.appendChild(note);
+}
     
     // Special handling for different character types
     if (character === 'sollux') {
@@ -281,6 +292,8 @@ function addCharacterOutput(character) {
         createGamzeeOutput(outputDiv, character);
     } else if (character === 'hal - Unda') {
         createHalOutput(outputDiv, character)
+    } else if (character === 'rufioh') {
+        createRufiohOutput(outputDiv, character)
     } else if (punCharacters[character]) {
         createPunCharacterOutput(outputDiv, character);
     } else {
@@ -367,6 +380,24 @@ function createAradiaOutput(container, character) {
     container.appendChild(variantDiv);
 }
 
+/* function createRufiohOutput(container, character) {
+    const outputText = document.createElement('div');
+    outputText.className = 'output-text';
+    outputText.id = `output-text-${character}`;
+    container.appendChild(outputText);
+    
+    const variantDiv = document.createElement('div');
+    variantDiv.className = 'variant-options';
+
+    const includeHumanCurses = createCheckboxLabel('rufioh-curse', 'Include human curses', (e) => {
+        state.trollHumanCurse = e.target.checked;
+        updateCharacterTranslation(character)
+    }, false
+    )
+    variantDiv.appendChild(includeHumanCurses);
+    container.appendChild(variantDiv)
+} */
+
 /**
  * Creates Gamzee-specific output (two text boxes for alternating caps + sober option)
  */
@@ -393,6 +424,40 @@ function createGamzeeOutput(container, character) {
     
     variantDiv.appendChild(soberLabel);
     container.appendChild(variantDiv);
+}
+
+function createRufiohOutput(container, character) {
+    // First output: With troll curse filtering only
+    const group1 = document.createElement('div');
+    group1.className = 'output-group';
+    
+    const label1 = document.createElement('div');
+    label1.className = 'output-label';
+    label1.textContent = 'Troll profanity censored:';
+    group1.appendChild(label1);
+    
+    const outputText1 = document.createElement('div');
+    outputText1.className = 'output-text';
+    outputText1.id = `output-text-${character}-1`;
+    group1.appendChild(outputText1);
+    
+    container.appendChild(group1);
+    
+    // Second output: With troll AND human curse filtering
+    const group2 = document.createElement('div');
+    group2.className = 'output-group';
+    
+    const label2 = document.createElement('div');
+    label2.className = 'output-label';
+    label2.textContent = 'Troll + human profanity censored:';
+    group2.appendChild(label2);
+    
+    const outputText2 = document.createElement('div');
+    outputText2.className = 'output-text';
+    outputText2.id = `output-text-${character}-2`;
+    group2.appendChild(outputText2);
+    
+    container.appendChild(group2);
 }
 
 //create hal output - checkbox for typing quirk based styling
@@ -549,8 +614,8 @@ function updateCharacterTranslation(character) {
     const translatedText = translator(currentInput);
     
     // Update output based on character type
-    if (character === 'gamzee') {
-        // Gamzee has two output boxes (alternating caps)
+    if (character === 'gamzee' || character === 'rufioh') {  
+        // Characters with two output boxes
         const outputs = translatedText.split('\n');
         const output1 = document.getElementById(`output-text-${character}-1`);
         const output2 = document.getElementById(`output-text-${character}-2`);
