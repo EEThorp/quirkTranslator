@@ -875,15 +875,15 @@ const rufiohTranslate = input => {
     state.handleOmit ? rufiohArray2 = [""] : rufiohArray2 = ["AT: "];
 
     // Apply troll only curse filtering to input for version 1
-    let trollCensored = trollCurseInput(input);
-    let capsResult1 = removeIsolatedCaps(trollCensored);
-    let iResult1 = capsResult1.replace(iToOneRegex, iToOneSubst);
+    let capsResult1 = removeIsolatedCaps(input)
+    let trollCensored = trollCurseInput(capsResult1)
+    let iResult1 = trollCensored.replace(iToOneRegex, iToOneSubst);
     rufiohArray1.push(iResult1);
     
     // Apply troll and human curse filtering to input for version 2
-    let trollHumanCensored = trollHumanCurseInput(input);
-    let capsResult2 = removeIsolatedCaps(trollHumanCensored);
-    let iResult2 = capsResult2.replace(iToOneRegex, iToOneSubst);
+    let capsResult2 = removeIsolatedCaps(input);
+    let trollHumanCensored = trollHumanCurseInput(capsResult2);    
+    let iResult2 = trollHumanCensored.replace(iToOneRegex, iToOneSubst);
     rufiohArray2.push(iResult2);
     
     if (state.workskinCode) {
@@ -899,6 +899,23 @@ const rufiohTranslate = input => {
 }
 
 console.log(rufiohTranslate(input))
+
+const damaraTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let damaraArray = []
+    state.handleOmit ? damaraArray = [""] : damaraArray = ["AA: "]
+    damaraArray.push(input)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="aradia">';
+        damaraArray.unshift(textColour)
+        damaraArray.push("</span>")
+        
+        }
+    const damaraOutput = damaraArray.join("")
+    return damaraOutput
+}
+
+console.log(damaraTranslate(input))
 
 // Export all translator functions for use in web interface
 export {
@@ -931,6 +948,7 @@ export {
     gamzeeTranslate,
     eridanTranslate,
     feferiTranslate,
+    damaraTranslate,
     kankriTranslate,
     mitunaTranslate,
     rufiohTranslate,
