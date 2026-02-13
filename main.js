@@ -29,6 +29,8 @@ import {
     rufiohTranslate,
     meulinTranslate,
     porrimTranslate,
+    latulaTranslate,
+    araneaTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -36,10 +38,12 @@ import {
     horsePunInput,
     seadwellerPunInput,
     trollCurseInput,
-    trollHumanCurseInput
+    trollHumanCurseInput,
+    serketPunInput,
 } from './quirk_translator_regex_fork.js';
 
 import { workskinArr, state } from './inputs.js';
+import { serketReplacements } from './serketTranslations.js';
 
 /* ========================================
    STATE MANAGEMENT
@@ -72,17 +76,20 @@ const translators = {
     eridan: eridanTranslate,
     feferi: feferiTranslate,
     damara: damaraTranslate,
+    rufioh: rufiohTranslate,
     kankri: kankriTranslate,
     mituna: mitunaTranslate,
     meulin: meulinTranslate,
     porrim: porrimTranslate,
+    latula: latulaTranslate,
+    aranea: araneaTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
     'kankri - Unda': undaKankriTranslate,
     'mituna - Unda': undaMitunaTranslate,
     'hal - Unda' : undaHalTranslate,
-    rufioh: rufiohTranslate,
+    
 };
 
 // Characters that use puns (will show two outputs: with and without puns)
@@ -93,6 +100,7 @@ const punCharacters = {
     equius: horsePunInput,
     eridan: seadwellerPunInput,
     feferi: seadwellerPunInput,
+    aranea: serketPunInput,
 };
 
 /* ========================================
@@ -276,6 +284,13 @@ function addCharacterOutput(character) {
     outputDiv.appendChild(note);
 }
 
+    if (character === 'vriska') {
+    const note = document.createElement('div');
+    note.className = 'output-note';
+    note.textContent = "Due to anger, Vriska can sometimes convert some vowels to 8's, even if this doesn't fit her normal typing quirk. The tickbox below permits this, giving a 25% chance for each uppercase vowel, and 5% for lowercase. E.g. 'DO IT YO8 COW8RD'";
+    outputDiv.appendChild(note);
+}
+
     if (character === 'mituna') {
         const note = document.createElement('div');
         note.className = 'output-note';
@@ -298,9 +313,11 @@ function addCharacterOutput(character) {
     } else if (character === 'gamzee') {
         createGamzeeOutput(outputDiv, character);
     } else if (character === 'hal - Unda') {
-        createHalOutput(outputDiv, character)
+        createHalOutput(outputDiv, character);
     } else if (character === 'rufioh') {
-        createRufiohOutput(outputDiv, character)
+        createRufiohOutput(outputDiv, character);
+    } else if (character === 'vriska') {
+        createVriskaOutput(outputDiv, character);
     } else if (punCharacters[character]) {
         createPunCharacterOutput(outputDiv, character);
     } else {
@@ -384,6 +401,24 @@ function createAradiaOutput(container, character) {
     
     variantDiv.appendChild(capsLabel);
     variantDiv.appendChild(zeroLabel);
+    container.appendChild(variantDiv);
+}
+
+function createVriskaOutput(container, character) {
+    const outputText = document.createElement('div');
+    outputText.className = 'output-text';
+    outputText.id = `output-text-${character}`;
+    container.appendChild(outputText);
+    
+    const variantDiv = document.createElement('div');
+    variantDiv.className = 'variant-options';
+    
+    const angryLabel = createCheckboxLabel('vriska-angry', 'Add extra 8s due to anger', (e) => {
+        state.vriskaAngry = e.target.checked;
+        updateCharacterTranslation(character);
+    }, false);
+
+    variantDiv.appendChild(angryLabel)
     container.appendChild(variantDiv);
 }
 

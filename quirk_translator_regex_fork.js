@@ -32,6 +32,18 @@ let catPunInput = input => {
 
 //console.log(catPunInput(input))
 
+let serketPunInput = input => {
+    let result = input;
+    for (const [word, replacement] of serketReplacements) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
+
 //converts input to input with horse puns, to be used as input substitute for characters who have a horse pun quirk if that option is selected.
 let horsePunInput = input => {
     let result = input;
@@ -467,7 +479,7 @@ const vriskaTranslate = input => {
     let capsLocationArray = capsIdentifier(capsResult);
     const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
     //setting up the serketReplaced variable with just the input at the start so it can be updated once the replacement is done.
-    let serketReplaced = capitalizedText;
+    let serketReplaced = capitalizedText
     for (const [word, replacement] of serketReplacements) {
         // Escape special regex characters (like the circumflex in fête)
         const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -475,7 +487,53 @@ const vriskaTranslate = input => {
         const regex = new RegExp(`\\b${escaped}\\b`, 'g');
         serketReplaced = serketReplaced.replace(regex, replacement)
     }
-    vriskaArray.push(serketReplaced);
+    //adding the ability for vriska's text to add 8's when she's angry
+    let bReplaced = serketReplaced.replace(bRegex, bSubst);
+    if(state.vriskaAngry) {
+        for (let i = 0; i < bReplaced.length; i++) {
+            const ch = bReplaced[i];
+            let out = ch;
+
+            switch (ch) {
+                case 'A':
+                    out = (Math.random() < 0.25) ? '8' : ch;
+                    break;
+                case 'E':
+                    out = (Math.random() < 0.25) ? '8' : ch;
+                    break;
+                case 'I':
+                    out = (Math.random() < 0.25) ? '8' : ch;
+                    break;
+                case 'O':
+                    out = (Math.random() < 0.25) ? '8' : ch;
+                    break;
+                case 'U':
+                    out = (Math.random() < 0.25) ? '8' : ch;
+                    break;
+                case 'a':
+                    out = (Math.random() < 0.05) ? '8' : ch;
+                    break;
+                case 'e':
+                    out = (Math.random() < 0.05) ? '8' : ch;
+                    break;
+                case 'i':
+                    out = (Math.random() < 0.05) ? '8' : ch;
+                    break;
+                case 'o':
+                    out = (Math.random() < 0.05) ? '8' : ch;
+                    break;
+                case 'u':
+                    out = (Math.random() < 0.05) ? '8' : ch;
+                    break;
+
+                default:
+                    out = ch;
+                    break;
+            }
+            vriskaArray.push(out);
+        }
+    } else {
+    vriskaArray.push(bReplaced)}
     if(state.workskinCode) {
         let textColour = state.workskinCustom || '<span class="vriska">';
             vriskaArray.unshift(textColour);
@@ -966,6 +1024,56 @@ const porrimTranslate = input => {
 
 console.log(porrimTranslate(input))
 
+const latulaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let latulaArray = []
+    state.handleOmit ? latulaArray = [""] : latulaArray = ["GC: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //feeding capsResult text through first regex translator.
+    const aResult = capsResult.replace(aRegex, aSubst);
+    //feeding aResult output into the next translator
+    const iToOneResult = aResult.replace(iToOneRegex, iToOneSubst);
+    //feeding iToOneResult output into the next translator
+    const eResult = iToOneResult.replace(eRegex, eSubst);
+    //adding regex results to completed regex variable
+    const regComplete = eResult
+    latulaArray.push(regComplete)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="terezi">';
+        latulaArray.unshift(textColour)
+        latulaArray.push("</span>")
+    }
+    const latulaOutput = latulaArray.join("")
+    return latulaOutput
+}
+
+console.log(latulaTranslate(input))
+
+const araneaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let araneaArray = []
+    state.handleOmit ? araneaArray = [""] : araneaArray = ["AG: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
+    //running formatted text through regex filters
+    let bReplaced = capitalizedText.replace(bRegex, bSubst)
+    araneaArray.push(bReplaced)
+    if(state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="vriska">';
+            araneaArray.unshift(textColour);
+            araneaArray.push("</span>"); 
+        }
+    let araneaOutput = araneaArray.join("");
+    return araneaOutput
+}
+
+console.log(araneaTranslate(input))
+console.log(araneaTranslate(serketPunInput(input)))
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -975,6 +1083,7 @@ export {
     ingConverterInput,
     trollCurseInput,
     trollHumanCurseInput,
+    serketPunInput,
     
     // Character translators - Unda Canon
     psiionicTranslate,
@@ -1003,4 +1112,6 @@ export {
     rufiohTranslate,
     meulinTranslate,
     porrimTranslate,
+    latulaTranslate,
+    araneaTranslate,
 };
