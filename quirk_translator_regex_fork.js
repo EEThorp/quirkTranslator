@@ -11,7 +11,7 @@ import { trollHumanCurseFiltered} from './trollHumanCurses.js';
 
 console.log(`Default input text: ${input}`)
 
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps } from './punctuation.js';
 
@@ -917,6 +917,53 @@ const damaraTranslate = input => {
 
 console.log(damaraTranslate(input))
 
+const meulinTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let meulinArray = []
+    state.handleOmit ? meulinArray = [""] : meulinArray = ["AC: "];
+    //converting to upper case
+    let upperInput = input.toUpperCase();
+    //ee conversion
+    const eeResult = upperInput.replace(eeRegex, eeSubst);
+    meulinArray.push(eeResult)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="nepeta">';
+        meulinArray.unshift(textColour)
+        meulinArray.push("</span>")
+    }
+    const meulinOutput = meulinArray.join("")
+    return meulinOutput
+};
+
+console.log(meulinTranslate(input))
+console.log(meulinTranslate(catPunInput))
+
+const porrimTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let porrimArray = []
+    state.handleOmit ? porrimArray = [""] : porrimArray = ["GA: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
+    //running formatted text through regex filters
+    let oPlusResult = capitalizedText.replace(oPlusRegex, oPlusSubst);
+    let zeroPlusResult = oPlusResult.replace(zeroPlusRegex, zeroPlusSubst);
+    let plusResult = zeroPlusResult.replace(plusRegex, plusSubst)
+    porrimArray.push(plusResult)
+    //workskin formatting add
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kanaya">';
+        porrimArray.unshift(textColour)
+        porrimArray.push("</span>")
+    }
+    const porrimOutput = porrimArray.join("")
+    return porrimOutput
+};
+
+console.log(porrimTranslate(input))
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -952,4 +999,6 @@ export {
     kankriTranslate,
     mitunaTranslate,
     rufiohTranslate,
+    meulinTranslate,
+    porrimTranslate,
 };
