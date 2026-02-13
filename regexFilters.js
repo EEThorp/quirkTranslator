@@ -98,6 +98,9 @@ const oPlusSubst = `o+`;
 //matches instances of 0 and replaces with 0+.
 const zeroPlusRegex = new RegExp('0', 'mg');
 const zeroPlusSubst = `0+`;
+//matches plus as a whole word replaces with +
+const plusRegex = /\bplus\b/gmi;
+const plusSubst = `+`;
 //matches capital letters
 const capsRegex = new RegExp('[A-Z]', 'gm')
 //uppercases the word strong
@@ -156,5 +159,8 @@ const properEyeSubst = `</span><span class=\"kankri\">Eye</span><span class=\"bl
 //adds red formatting to uppercase eye as a whole word, returns black after.
 const upperEyeRegex = new RegExp(/\bEYE\b/g);
 const upperEyeSubst = `</span><span class=\"kankri\">EYE</span><span class=\"black\">`;
+//converts OMG to MOG for meulin
+const mogRegex = new RegExp(/\bOMG\b/gm);
+const mogSubst = `MOG`;
 
-export { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, letterRegex, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, periodToCommaRegex, periodToCommaSubst, exclamationToOneRegex, exclamationToOneSubst, questionToSlashRegex, questionToSlashSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst};
+export { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, letterRegex, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, periodToCommaRegex, periodToCommaSubst, exclamationToOneRegex, exclamationToOneSubst, questionToSlashRegex, questionToSlashSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst};

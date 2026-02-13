@@ -27,6 +27,8 @@ import {
     undaHalTranslate,
     kankriTranslate,
     rufiohTranslate,
+    meulinTranslate,
+    porrimTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -72,22 +74,25 @@ const translators = {
     damara: damaraTranslate,
     kankri: kankriTranslate,
     mituna: mitunaTranslate,
+    meulin: meulinTranslate,
+    porrim: porrimTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
     'kankri - Unda': undaKankriTranslate,
     'mituna - Unda': undaMitunaTranslate,
     'hal - Unda' : undaHalTranslate,
-    rufioh: rufiohTranslate
+    rufioh: rufiohTranslate,
 };
 
 // Characters that use puns (will show two outputs: with and without puns)
 const punCharacters = {
     nepeta: catPunInput,
     disciple: catPunInput,
+    meulin: catPunInput,
     equius: horsePunInput,
     eridan: seadwellerPunInput,
-    feferi: seadwellerPunInput
+    feferi: seadwellerPunInput,
 };
 
 /* ========================================
