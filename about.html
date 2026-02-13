@@ -76,6 +76,16 @@
                     <p>Feferi has a pun and non-pun output, these are run before any other text transformation takes place. There are approximately 113 seadweller puns that can be made. Feferi uses standard capitalisation rules, so the beginning of her sentences are capitalised. The following transformations are then applied: </p>
                     <ul><li>"h" and "H" are replaced with "".</li>
                     <li>"E" is replaced with "-E". This allows Feferi to use lowercase e's normally but also make uppercase e's resemble her trident. If you want to make the trident longer for emphasis, you can add more hypens yourself. E.g. "HER----E" becoming ")(-ER-----E"</li></ul></div>
+                    <div class="character-info"><h3>Damara</h3>
+                    <p>Damara's text is converted to her colour and her handle is added if appropriate. You can paste whatever poorly translated Japanese you want into here and it will be formatted accordingly.</p></div>
+                    <div class="character-info"><h3>Rufioh</h3>
+                    <p>Rufioh's text has two outputs, which relate to his use of censorship. Rufioh censors profanity, some slurs, and some things which are not even profanity e.g. "damn". I compiled a list of these curses and added in troll anatomy specific profanity based of of these, working off of what made sense for the human analogue of those body parts. I then split this list into two versions, the first appears in Rufioh's first text box, and the second in the second text box. The first has all of these troll-specific insults and profanity in there, but has all human-specific profanity removed. This is to account for situations where Rufioh has no contact with humans or has chosen not to censor their words. For example "dickhead" would slip past this first censor untouched, whereas "bulgehead" would not. The second output box includes both species and would censor both of these.
+                    His translation process goes as follows:</p>
+                    <ul>
+                        <li>All input text is stripped of errant capitals, as Rufioh does not use them, except for emphasis. This is done prior to censorship as his censoring asterisks throws off the code that detects strings of capitals.</li>
+                        <li>Text is censored according to the troll specific and human and troll specific lists, producing two different possible outcomes. Though, depending on the input, they may be identical in practice.</li>
+                        <li>"i/I" are converted into "1" for both outputs.</li>
+                        </ul></div>  
                     <div class="character-info"><h3>Kankri</h3>
                     <p>Kankri's text is converted to produce sentences that start with capital letters, permit very rare bouts of yelling in all caps, and removes errant capitals that might be scattered in. He then has two transformations applied to his text: </p>
                     <ul><li>"B/b" is converted to "6".</li>
@@ -135,6 +145,7 @@
                         <li>"I/i" will be formatted in red, whether they are isolated or as part of a word. The workskin formatting will turn off formatting before it, switch to red, and then back to black ready for the next character.</li>
                         <li>"eye/Eye/EYE" as whole words are turned red, but not as part of a word. The workskin formatting will turn off formatting before it, switch to red, and then back to black ready for the next character.</li>
                         </ul></div>  
+                        
                 </section>
             </div>
 

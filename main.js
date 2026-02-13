@@ -17,6 +17,7 @@ import {
     gamzeeTranslate,
     eridanTranslate,
     feferiTranslate,
+    damaraTranslate,
     mitunaTranslate,
     discipleTranslate,
     psiionicTranslate,
@@ -68,6 +69,7 @@ const translators = {
     gamzee: gamzeeTranslate,
     eridan: eridanTranslate,
     feferi: feferiTranslate,
+    damara: damaraTranslate,
     kankri: kankriTranslate,
     mituna: mitunaTranslate,
     disciple: discipleTranslate,
@@ -380,23 +382,6 @@ function createAradiaOutput(container, character) {
     container.appendChild(variantDiv);
 }
 
-/* function createRufiohOutput(container, character) {
-    const outputText = document.createElement('div');
-    outputText.className = 'output-text';
-    outputText.id = `output-text-${character}`;
-    container.appendChild(outputText);
-    
-    const variantDiv = document.createElement('div');
-    variantDiv.className = 'variant-options';
-
-    const includeHumanCurses = createCheckboxLabel('rufioh-curse', 'Include human curses', (e) => {
-        state.trollHumanCurse = e.target.checked;
-        updateCharacterTranslation(character)
-    }, false
-    )
-    variantDiv.appendChild(includeHumanCurses);
-    container.appendChild(variantDiv)
-} */
 
 /**
  * Creates Gamzee-specific output (two text boxes for alternating caps + sober option)
