@@ -11,7 +11,7 @@ import { trollHumanCurseFiltered} from './trollHumanCurses.js';
 
 console.log(`Default input text: ${input}`)
 
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps } from './punctuation.js';
 
@@ -925,7 +925,9 @@ const meulinTranslate = input => {
     let upperInput = input.toUpperCase();
     //ee conversion
     const eeResult = upperInput.replace(eeRegex, eeSubst);
-    meulinArray.push(eeResult)
+    //mog conversion
+    const mogResult = eeResult.replace(mogRegex, mogSubst);
+    meulinArray.push(mogResult)
     if (state.workskinCode) {
         let textColour = state.workskinCustom || '<span class="nepeta">';
         meulinArray.unshift(textColour)
@@ -936,7 +938,7 @@ const meulinTranslate = input => {
 };
 
 console.log(meulinTranslate(input))
-console.log(meulinTranslate(catPunInput))
+console.log(meulinTranslate(catPunInput(input)))
 
 const porrimTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
