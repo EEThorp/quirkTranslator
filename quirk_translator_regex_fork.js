@@ -8,10 +8,11 @@ import { seadwellerPuns } from './seadwellerPuns.js';
 import { ingConverter } from './ingConverter.js';
 import { trollCurseFiltered } from './trollCurses.js';
 import { trollHumanCurseFiltered} from './trollHumanCurses.js';
+import { strictCurseFiltered} from './strictCurses.js';
 
 console.log(`Default input text: ${input}`)
 
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst,  strengthenRegex, strengthenSubst, stronglyRegex, stronglytSubst, fortifyRegex, fortifySubst, mightRegex, mightSubst, mightyRegex, mightySubst } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps } from './punctuation.js';
 
@@ -105,7 +106,18 @@ let trollHumanCurseInput = input => {
     return result;
 }
 
-//console.log(ingConverterInput(input))
+//converts input to input with generic and troll specific swearing censored, but omits human specific.
+let strictCurseInput = input => {
+    let result = input;
+    for (const [word, replacement] of strictCurseFiltered) {
+        // Escape special regex characters
+        const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Use word boundaries to match whole words only
+        const regex = new RegExp(`\\b${escaped}\\b`, 'g');
+        result = result.replace(regex, replacement);
+    }
+    return result;
+}
 
 //character translators below
 
@@ -567,7 +579,11 @@ const equiusTranslate = input => {
     //feeding strongnessResult output into the next translator
     const strongestResult = strongnessResult.replace(strongestRegex, strongestSubst);
     //feeding strongestResult output into the next translator
-    const xResult = strongestResult.replace(xRegex, xSubst);
+    const strengthenResult = strongestResult.replace(strengthenRegex, strengthenSubst);
+    //feeding strengthenResult output into the next translator
+    const stronglyResult = strengthenResult.replace(stronglyRegex, stronglytSubst);
+    //feeding stronglyResult into next translator
+    const xResult = stronglyResult.replace(xRegex, xSubst);
     //feeding xResult output into the next translator
     const looResult = xResult.replace(looRegex, looSubst);
     //feeding looResult output into the next translator
@@ -1074,6 +1090,116 @@ const araneaTranslate = input => {
 console.log(araneaTranslate(input))
 console.log(araneaTranslate(serketPunInput(input)))
 
+const horussTranslate = input => {
+    //creating 2 arrays and opening with chat handle and space, set up to respond to the handleOmit variable
+    let horussArray1 = []
+    let horussArray2 = []
+    state.handleOmit ? horussArray1 = [""] : horussArray1 = ["CT: "];
+    state.handleOmit ? horussArray2 = [""] : horussArray2 = ["CT: "];
+    
+    //will create two boxes, with a checkbox which will change those boxes, creating four possible options: box 1 horse puns with curses filtered, box 2 no horse puns but curses filtered; then when the remove curse filtering box is checked there will be: box 1 horse puns no curse filter, box 2 no puns and no curse filter.
+    
+    //this first section is applied to all four outputs prior to any pun input. This will catch strange caps errors and make the filters work better, though it is not practical to apply this to all pun characters. 
+    //removing isolated capitals
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
+
+    //box 1 logic
+    let punResult1 = horsePunInput(capitalizedText)
+    let preRegex1
+    if (state.strictCurse) {
+        let strictResult1 = strictCurseInput(punResult1)
+        let trollCensored1 = trollCurseInput(strictResult1)
+        preRegex1 = trollCensored1
+    } else {
+        preRegex1 = punResult1
+    }
+    //feeding input text through first regex translator.
+    const strongResult1 = preRegex1.replace(strongRegex, strongSubst);
+    //feeding strongResult output into the next translator
+    const strengthResult1 = strongResult1.replace(strengthRegex, strengthSubst);
+    //feeding strengthResult output into the next translator
+    const strongnessResult1 = strengthResult1.replace(strongnessRegex, strongnessSubst);
+    //feeding strongnessResult output into the next translator
+    const strongestResult1 = strongnessResult1.replace(strongestRegex, strongestSubst);
+    //feeding strongestResult output into the next translator
+    const strengthenResult1 = strongestResult1.replace(strengthenRegex, strengthenSubst);
+    //feeding strengthenResult output into the next translator
+    const stronglyResult1 = strengthenResult1.replace(stronglyRegex, stronglytSubst);
+    //feeding stronglyResult into next translator
+    const fortifyResult1 = stronglyResult1.replace(fortifyRegex, fortifySubst);
+    //feeding fortifyResult into next translator
+    const mightResult1 = fortifyResult1.replace(mightRegex, mightSubst);
+    //feeding mightResult into next translator
+    const mightyResult1 = mightResult1.replace(mightyRegex, mightySubst);
+    //feeding mightyResult into next translator
+    const xResult1 = mightyResult1.replace(xRegex, xSubst);
+    //feeding xResult output into the next translator
+    const looResult1 = xResult1.replace(looRegex, looSubst);
+    //feeding looResult output into the next translator
+    const oolResult1 = looResult1.replace(oolRegex, oolSubst);
+    //feeding oolResult output into the next translator
+    const crossResult1 = oolResult1.replace(crossRegex, crossSubst);
+    //adding regex results to completed regex variable
+    const regComplete1 = crossResult1
+    horussArray1.push(regComplete1)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="equius">';
+        horussArray1.unshift(textColour)
+        horussArray1.push("</span>")
+    }
+    //box 2 logic
+    let preRegex
+    if (state.strictCurse) {
+        let strictResult = strictCurseInput(capitalizedText)
+        let trollCensored = trollCurseInput(strictResult)
+        preRegex = trollCensored
+    } else {
+        preRegex = capitalizedText
+    }
+    //feeding input text through first regex translator.
+    const strongResult = preRegex.replace(strongRegex, strongSubst);
+    //feeding strongResult output into the next translator
+    const strengthResult = strongResult.replace(strengthRegex, strengthSubst);
+    //feeding strengthResult output into the next translator
+    const strongnessResult = strengthResult.replace(strongnessRegex, strongnessSubst);
+    //feeding strongnessResult output into the next translator
+    const strongestResult = strongnessResult.replace(strongestRegex, strongestSubst);
+    //feeding strongestResult output into the next translator
+    const strengthenResult = strongestResult.replace(strengthenRegex, strengthenSubst);
+    //feeding strengthenResult output into the next translator
+    const stronglyResult = strengthenResult.replace(stronglyRegex, stronglytSubst);
+    //feeding stronglyResult into next translator
+    const fortifyResult = stronglyResult.replace(fortifyRegex, fortifySubst);
+    //feeding fortifyResult into next translator
+    const mightResult = fortifyResult.replace(mightRegex, mightSubst);
+    //feeding mightResult into next translator
+    const mightyResult = mightResult.replace(mightyRegex, mightySubst);
+    //feeding mightyResult into next translator
+    const xResult = mightyResult.replace(xRegex, xSubst);
+    //feeding xResult output into the next translator
+    const looResult = xResult.replace(looRegex, looSubst);
+    //feeding looResult output into the next translator
+    const oolResult = looResult.replace(oolRegex, oolSubst);
+    //feeding oolResult output into the next translator
+    const crossResult = oolResult.replace(crossRegex, crossSubst);
+    //adding regex results to completed regex variable
+    const regComplete = crossResult
+    horussArray2.push(regComplete)
+
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="equius">';
+        horussArray2.unshift(textColour)
+        horussArray2.push("</span>")
+    }
+    const horussOutput = `${horussArray1.join("")}\n${horussArray2.join("")}`
+    return horussOutput
+}
+
+console.log(horussTranslate(input));
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -1084,6 +1210,7 @@ export {
     trollCurseInput,
     trollHumanCurseInput,
     serketPunInput,
+    strictCurseInput,
     
     // Character translators - Unda Canon
     psiionicTranslate,
@@ -1114,4 +1241,5 @@ export {
     porrimTranslate,
     latulaTranslate,
     araneaTranslate,
+    horussTranslate,
 };

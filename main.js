@@ -31,6 +31,7 @@ import {
     porrimTranslate,
     latulaTranslate,
     araneaTranslate,
+    horussTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -40,6 +41,7 @@ import {
     trollCurseInput,
     trollHumanCurseInput,
     serketPunInput,
+    strictCurseInput,
 } from './quirk_translator_regex_fork.js';
 
 import { workskinArr, state } from './inputs.js';
@@ -83,6 +85,7 @@ const translators = {
     porrim: porrimTranslate,
     latula: latulaTranslate,
     aranea: araneaTranslate,
+    horuss: horussTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
@@ -304,6 +307,13 @@ function addCharacterOutput(character) {
     note.textContent = "Rufioh censors his text, the default option is for him to just censor general and troll-specific profanity. If you want to also filter for human profanity (generally relating to human body parts), the second box will include this.";
     outputDiv.appendChild(note);
 }
+
+if (character === 'horuss') {
+    const note = document.createElement('div');
+    note.className = 'output-note';
+    note.textContent = "Horuss uses horse puns and heavily censors his text. To allow you to have every variation of this there is a pun and no pun box, and an option to toggle off censorship (toggleg on by default). Note that he censors even vanilla curse words and non-curse words too.";
+    outputDiv.appendChild(note);
+}
     
     // Special handling for different character types
     if (character === 'sollux') {
@@ -316,6 +326,8 @@ function addCharacterOutput(character) {
         createHalOutput(outputDiv, character);
     } else if (character === 'rufioh') {
         createRufiohOutput(outputDiv, character);
+    } else if (character === 'horuss') {
+        createHorussOutput(outputDiv, character);
     } else if (character === 'vriska') {
         createVriskaOutput(outputDiv, character);
     } else if (punCharacters[character]) {
@@ -485,6 +497,51 @@ function createRufiohOutput(container, character) {
     container.appendChild(group2);
 }
 
+function createHorussOutput(container, character) {
+    // First output: Horse puns
+    const group1 = document.createElement('div');
+    group1.className = 'output-group';
+    
+    const label1 = document.createElement('div');
+    label1.className = 'output-label';
+    label1.textContent = 'Horse puns:';
+    group1.appendChild(label1);
+    
+    const outputText1 = document.createElement('div');
+    outputText1.className = 'output-text';
+    outputText1.id = `output-text-${character}-1`;
+    group1.appendChild(outputText1);
+    
+    container.appendChild(group1);
+    
+    // Second output: No Horse puns
+    const group2 = document.createElement('div');
+    group2.className = 'output-group';
+    
+    const label2 = document.createElement('div');
+    label2.className = 'output-label';
+    label2.textContent = 'No puns:';
+    group2.appendChild(label2);
+    
+    const outputText2 = document.createElement('div');
+    outputText2.className = 'output-text';
+    outputText2.id = `output-text-${character}-2`;
+    group2.appendChild(outputText2);
+    
+    container.appendChild(group2);
+
+    const variantDiv = document.createElement('div');
+    variantDiv.className = 'variant-options';
+
+    const quirkLabel = createCheckboxLabel('horuss-censor', 'Strong profanity censor', (e) => {
+        state.strictCurse = e.target.checked;
+        updateCharacterTranslation(character);
+    }, true);
+    
+    variantDiv.appendChild(quirkLabel);
+    container.appendChild(variantDiv);
+};
+
 //create hal output - checkbox for typing quirk based styling
 function createHalOutput(container, character) {
     const outputText = document.createElement('div');
@@ -639,7 +696,7 @@ function updateCharacterTranslation(character) {
     const translatedText = translator(currentInput);
     
     // Update output based on character type
-    if (character === 'gamzee' || character === 'rufioh') {  
+    if (character === 'gamzee' || character === 'rufioh' || character === 'horuss') {  
         // Characters with two output boxes
         const outputs = translatedText.split('\n');
         const output1 = document.getElementById(`output-text-${character}-1`);
