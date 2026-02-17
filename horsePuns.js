@@ -54,7 +54,7 @@ Maim	Mane
 Maimed	Maned
 Maims	Manes
 Maiming	Maneing
-Can'T	Canter
+Can't	Canter
 Rain	Rein
 Reign	Rain
 Raining	Reining
@@ -137,7 +137,10 @@ HONESTLY	HORSENESTLY
 CHOPPED	CLOPPED
 CHOP	CLOP
 FEET	HOOVES
-FOOT	HOOF`;
+FOOT	HOOF
+who	whoof
+Who	Whoof
+WHO	WHOOF`;
 
 // Parse the tab-separated data into array of [word, replacement] pairs
 const lines = horsePunData.split('\n');
