@@ -32,6 +32,7 @@ import {
     latulaTranslate,
     araneaTranslate,
     horussTranslate,
+    kurlozTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -86,6 +87,7 @@ const translators = {
     latula: latulaTranslate,
     aranea: araneaTranslate,
     horuss: horussTranslate,
+    kurloz: kurlozTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
