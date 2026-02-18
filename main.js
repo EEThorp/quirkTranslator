@@ -33,8 +33,6 @@ import {
     araneaTranslate,
     horussTranslate,
     kurlozTranslate,
-    cronusTranslate,
-    meenahTranslate,
 } from './quirk_translator_regex_fork.js';
 
 import { 
@@ -90,8 +88,6 @@ const translators = {
     aranea: araneaTranslate,
     horuss: horussTranslate,
     kurloz: kurlozTranslate,
-    cronus: cronusTranslate,
-    meenah: meenahTranslate,
     disciple: discipleTranslate,
     psiionic: psiionicTranslate,
     signless: signlessTranslate,
@@ -110,7 +106,6 @@ const punCharacters = {
     eridan: seadwellerPunInput,
     feferi: seadwellerPunInput,
     aranea: serketPunInput,
-    meenah: seadwellerPunInput,
 };
 
 /* ========================================
