@@ -10,9 +10,7 @@ import { trollCurseFiltered } from './trollCurses.js';
 import { trollHumanCurseFiltered} from './trollHumanCurses.js';
 import { strictCurseFiltered} from './strictCurses.js';
 
-console.log(`Default input text: ${input}`)
-
-import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst,  strengthenRegex, strengthenSubst, stronglyRegex, stronglytSubst, fortifyRegex, fortifySubst, mightRegex, mightSubst, mightyRegex, mightySubst } from './regexFilters.js';
+import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst,  strengthenRegex, strengthenSubst, stronglyRegex, stronglytSubst, fortifyRegex, fortifySubst, mightRegex, mightSubst, mightyRegex, mightySubst, vwRegexLower, vwSubstLower, vwRegexUpper, vwSubstUpper, wvRegexLower, wvSubstLower, wvRegexUpper, wvSubstUpper, capBRegex } from './regexFilters.js';
 
 import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps } from './punctuation.js';
 
@@ -30,8 +28,6 @@ let catPunInput = input => {
     }
     return result;
 }
-
-//console.log(catPunInput(input))
 
 let serketPunInput = input => {
     let result = input;
@@ -121,113 +117,6 @@ let strictCurseInput = input => {
 
 //character translators below
 
-const psiionicTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let psiiArray = []
-    state.handleOmit ? psiiArray = [""] : psiiArray = ["TA: "]
-    //converting input text to lower case
-    let lowerInput = input.toLowerCase();
-    //feeding lowerInput text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. Using the caps identifier functions and capitalize at indices to apply appropriate caps use, this goes before the i converter as that will always be lower case.
-    let capsLocationArray = capsIdentifier(lowerInput);
-    const capitalizedText = capitalizeAtIndices(lowerInput, capsLocationArray)
-    const twoIsolatedResult = capitalizedText.replace(twoIsolatedRegex, twoIsolatedSubst);
-    //feeding the twoIsolatedResult output into the next translator
-    const intoResult = twoIsolatedResult.replace(intoRegex, intoSubst);
-    //feeding intoResult output into the next translator
-    const todayResult = intoResult.replace(todayRegex, todaySubst);
-    //feeding todayResult output into the next translator
-    const tomorrowResult = todayResult.replace(tomorrowRegex, tomorrowSubst);
-    //feeding tomorrowResult output into the next translator
-    const togetherResult = tomorrowResult.replace(togetherRegex, togetherSubst);
-    //feeding togetherResult output into the next translator
-    const tonightResult = togetherResult.replace(tonightRegex, tonightSubst);
-    //feeding tonightResult output to the next translator
-    const sResult = tonightResult.replace(sRegex, sSubst);
-    //feeding sResult output to the next translator
-    const iResult = sResult.replace(iRegex, iSubst);
-    //feeding iResult output to the next translator
-    const lResult = iResult.replace(lRegex, lSubst);
-    //feeding iResult output to the next translator
-    const oResult = lResult.replace(oRegex, oSubst);
-    //adding the regex results to a completed regex variable, for easier transition to regular code.
-    let regComplete = oResult
-    //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
-    for (let i = 0; i < regComplete.length; i++) {
-        if (psiiPunctuation.includes(regComplete[i])) {
-            continue
-        } else {
-            psiiArray.push(regComplete[i])
-        }
-    }
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="sollux">';
-        psiiArray.unshift(textColour)
-        psiiArray.push("</span>")
-    }
-    const psiiOutput = psiiArray.join("")
-    return psiiOutput
-    }
-
-console.log(psiionicTranslate(input));
-
-const signlessTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let signlessArray = []
-    state.handleOmit ? signlessArray = [""] : signlessArray = ["CG: "]
-    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
-    let capitalizedText = capitalizeSentences(input)
-    //feeding result into bToSixRegex
-    let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
-    //Feeding bResult into oToNine regex
-    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
-    //adding the regex results to a completed regex variable, for easier transition to regular code.
-    let regComplete = oResult
-    //pushing to array
-    signlessArray.push(regComplete)
-    // adding workskin coding
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="kankri">';
-        signlessArray.unshift(textColour)
-        signlessArray.push("</span>")
-    }
-    const signlessOutput = signlessArray.join("")
-    return signlessOutput
-}
-
-console.log(signlessTranslate(input))
-
-const discipleTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let discipleArray = []
-    state.handleOmit ? discipleArray = [""] : discipleArray = ["AC: "];
-    //bracketing Disciple's text with her partner's signs if selected. If the workskin coding is on, the sign halves will be formatted in their colours, else they will be added as plaintext. Opening added here.
-    if (state.discipleStart) {
-        state.workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
-    }
-    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
-    let capitalizedText = capitalizeSentences(input)
-    //feeding capitalised text into eeRegex
-    const eeResult = capitalizedText.replace(eeRegex, eeSubst)
-    //adding the regex results to a completed regex variable, for easier transition to regular code.
-    let regComplete = eeResult
-    discipleArray.push(regComplete)
-    //bracketing Disciple's text with her partner's signs if selected. Ended added here.
-    if (state.discipleStart) {
-        state.workskinCode ? discipleArray.push('<span class="sollux">I</span><span class="kankri">9</span><span class="nepeta"> ') : discipleArray.push("I9 ")
-    }
-    // adding workskin coding
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="nepeta">';
-        discipleArray.unshift(textColour)
-        discipleArray.push("</span>")
-    }
-    const discipleOutput = discipleArray.join("")
-    return discipleOutput
-}
-
-console.log(discipleTranslate(input))
-console.log(discipleTranslate(catPunInput(input)))
-
 const aradiaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let aradiaArray = []
@@ -239,7 +128,7 @@ const aradiaTranslate = input => {
         capsResult = removeIsolatedCaps(input)
     } else {        
     capsResult.push(input.toLowerCase());
-}
+    }
     //accounting for the results of her 0 conversion being on or not.
     let oResult
     if (state.aradiaZero) {
@@ -265,8 +154,6 @@ const aradiaTranslate = input => {
     return aradiaOutput
 }
 
-console.log(aradiaTranslate(input));
-
 const tavrosTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let tavrosArray = []
@@ -289,9 +176,6 @@ const tavrosTranslate = input => {
     const tavrosOutput = tavrosArray.join("")
     return tavrosOutput
 }
-
-console.log(tavrosTranslate(input));
-
 
 const solluxTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -328,19 +212,12 @@ const solluxTranslate = input => {
     } else {
         //feeding the input for standard Sollux typing style through the regex converters to get his typing quirk.
         const twoIsolatedResult = capsResult.replace(twoIsolatedRegex, twoIsolatedSubst);
-        //feeding the twoIsolatedResult output into the next translator
         const intoResult = twoIsolatedResult.replace(intoRegex, intoSubst);
-        //feeding intoResult output into the next translator
         const todayResult = intoResult.replace(todayRegex, todaySubst);
-        //feeding todayResult output into the next translator
         const tomorrowResult = todayResult.replace(tomorrowRegex, tomorrowSubst);
-        //feeding tomorrowResult output into the next translator
         const togetherResult = tomorrowResult.replace(togetherRegex, togetherSubst);
-        //feeding togetherResult output into the next translator
         const tonightResult = togetherResult.replace(tonightRegex, tonightSubst);
-        //feeding tonightResult output to the next translator
         const sResult = tonightResult.replace(sRegex, sSubst);
-        //feeding sResult output to the next translator
         const iResult = sResult.replace(iRegex, iSubst);
         //adding the regex results to a completed regex variable, for easier transition to regular code.
         regComplete = iResult
@@ -356,8 +233,6 @@ const solluxTranslate = input => {
     let solluxOutput = solluxArray.join("")
     return solluxOutput
 };
-
-console.log(solluxTranslate(input))
 
 const karkatTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -377,8 +252,6 @@ const karkatTranslate = input => {
     return karkatOutput
     
 }
-
-console.log(karkatTranslate(input))
 
 const nepetaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -409,9 +282,6 @@ const nepetaTranslate = input => {
     const nepetaOutput = nepetaArray.join("")
     return nepetaOutput
 }
-
-console.log(nepetaTranslate(input))
-console.log(nepetaTranslate(catPunInput(input)))
 
 const kanayaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -446,8 +316,6 @@ const kanayaTranslate = input => {
     return kanayaOutput
 }
 
-console.log(kanayaTranslate(input))
-
 const tereziTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let tereziArray = []
@@ -456,9 +324,7 @@ const tereziTranslate = input => {
     let upperInput = input.toUpperCase();
     //feeding upperInput text through first regex translator.
     const aResult = upperInput.replace(aRegex, aSubst);
-    //feeding aResult output into the next translator
     const iToOneResult = aResult.replace(iToOneRegex, iToOneSubst);
-    //feeding iToOneResult output into the next translator
     const eResult = iToOneResult.replace(eRegex, eSubst);
     //adding regex results to completed regex variable
     const regComplete = eResult
@@ -478,8 +344,6 @@ const tereziTranslate = input => {
     const tereziOutput = tereziArray.join("")
     return tereziOutput
 }
-
-console.log(tereziTranslate(input))
 
 const vriskaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -555,8 +419,6 @@ const vriskaTranslate = input => {
     return vriskaOutput
 }
 
-console.log(vriskaTranslate(input))
-
 const equiusTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let equiusArray = []
@@ -572,23 +434,14 @@ const equiusTranslate = input => {
     const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
     //feeding input text through first regex translator.
     const strongResult = capitalizedText.replace(strongRegex, strongSubst);
-    //feeding strongResult output into the next translator
     const strengthResult = strongResult.replace(strengthRegex, strengthSubst);
-    //feeding strengthResult output into the next translator
     const strongnessResult = strengthResult.replace(strongnessRegex, strongnessSubst);
-    //feeding strongnessResult output into the next translator
     const strongestResult = strongnessResult.replace(strongestRegex, strongestSubst);
-    //feeding strongestResult output into the next translator
     const strengthenResult = strongestResult.replace(strengthenRegex, strengthenSubst);
-    //feeding strengthenResult output into the next translator
     const stronglyResult = strengthenResult.replace(stronglyRegex, stronglytSubst);
-    //feeding stronglyResult into next translator
     const xResult = stronglyResult.replace(xRegex, xSubst);
-    //feeding xResult output into the next translator
     const looResult = xResult.replace(looRegex, looSubst);
-    //feeding looResult output into the next translator
     const oolResult = looResult.replace(oolRegex, oolSubst);
-    //feeding oolResult output into the next translator
     const crossResult = oolResult.replace(crossRegex, crossSubst);
     //adding regex results to completed regex variable
     const regComplete = crossResult
@@ -608,9 +461,6 @@ const equiusTranslate = input => {
     const equiusOutput = equiusArray.join("")
     return equiusOutput
 }
-
-console.log(equiusTranslate(input))
-console.log(equiusTranslate(horsePunInput(input)))
 
 const gamzeeTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -639,8 +489,6 @@ const gamzeeTranslate = input => {
     const gamzeeOutput = `${gamzeeArray1.join("")}\n${gamzeeArray2.join("")}`
     return gamzeeOutput
 }
-
-console.log(gamzeeTranslate(input))
 
 const eridanTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
@@ -689,9 +537,6 @@ const eridanTranslate = input => {
     return eridanOutput
 };
 
-console.log(eridanTranslate(input))
-console.log(eridanTranslate(seadwellerPunInput(input)))
-
 const feferiTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let feferiArray = []
@@ -713,65 +558,51 @@ const feferiTranslate = input => {
     return feferiOutput
 }
 
-console.log(feferiTranslate(input))
-console.log(feferiTranslate(seadwellerPunInput(input)))
-
-//canon kankri translator, identical to signless array at creation but separated to preserve from any alterations that unda canon signless may adopt
-const kankriTranslate = input => {
+const damaraTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let kankriArray = []
-    state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
-    //removing isolated capitals
-    let capsResult = removeIsolatedCaps(input)
-    //capitalising sentences
-    let capsLocationArray = capsIdentifier(capsResult);
-    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
-    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
-    //feeding result into bToSixRegex
-    let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
-    //Feeding bResult into oToNine regex
-    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
-    //adding the regex results to a completed regex variable, for easier transition to regular code.
-    let regComplete = oResult
-    //feeding regComplete through the capsChain function to allow for kankri's rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
-    kankriArray.push(regComplete)
-    // adding workskin coding
+    let damaraArray = []
+    state.handleOmit ? damaraArray = [""] : damaraArray = ["AA: "]
+    damaraArray.push(input)
     if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="kankri">';
-        kankriArray.unshift(textColour)
-        kankriArray.push("</span>")
-    }
-    const kankriOutput = kankriArray.join("")
-    return kankriOutput
+        let textColour = state.workskinCustom || '<span class="aradia">';
+        damaraArray.unshift(textColour)
+        damaraArray.push("</span>")
+        
+        }
+    const damaraOutput = damaraArray.join("")
+    return damaraOutput
 }
 
-console.log(kankriTranslate(input))
+const rufiohTranslate = input => {
+    // Create TWO separate arrays for two outputs
+    let rufiohArray1 = []
+    let rufiohArray2 = []
+    state.handleOmit ? rufiohArray1 = [""] : rufiohArray1 = ["AT: "];
+    state.handleOmit ? rufiohArray2 = [""] : rufiohArray2 = ["AT: "];
 
-//canon kankri translator, identical to signless array at creation but separated to preserve from any alterations that unda canon signless may adopt
-const undaKankriTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let kankriArray = []
-    state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
-    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This Kankri may make errors in capitalising things, so proper form is not code-enforced
-    let bResult = input.replace(bToSixRegex, bToSixSubst)
-    //Feeding bResult into oToNine regex
-    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
-    //adding the regex results to a completed regex variable, for easier transition to regular code.
-    let regComplete = oResult
-    //feeding regComplete through the capsChain function to allow for kankri's rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
-    kankriArray.push(regComplete)
-    // adding workskin coding
+    // Apply troll only curse filtering to input for version 1
+    let capsResult1 = removeIsolatedCaps(input)
+    let trollCensored = trollCurseInput(capsResult1)
+    let iResult1 = trollCensored.replace(iToOneRegex, iToOneSubst);
+    rufiohArray1.push(iResult1);
+    
+    // Apply troll and human curse filtering to input for version 2
+    let capsResult2 = removeIsolatedCaps(input);
+    let trollHumanCensored = trollHumanCurseInput(capsResult2);    
+    let iResult2 = trollHumanCensored.replace(iToOneRegex, iToOneSubst);
+    rufiohArray2.push(iResult2);
+    
     if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="kankri">';
-        kankriArray.unshift(textColour)
-        kankriArray.push("</span>")
+        let textColour = state.workskinCustom || '<span class="tavros">';
+        rufiohArray1.unshift(textColour)
+        rufiohArray2.unshift(textColour)
+        rufiohArray1.push("</span>")
+        rufiohArray2.push("</span>")
     }
-    const kankriOutput = kankriArray.join("")
-    return kankriOutput
+    // Join both arrays and return with newline separator so they'll go to each textbox
+    const rufiohOutput = `${rufiohArray1.join("")}\n${rufiohArray2.join("")}`
+    return rufiohOutput
 }
-
-console.log(undaKankriTranslate(input))
-
 
 //canon Mituna translator, not to be confused with the Unda Canon Mituna translator.
 const mitunaTranslate = input => {
@@ -844,8 +675,404 @@ const mitunaTranslate = input => {
     return mitunaOutput
     }
 
-console.log(mitunaTranslate(input));
+//canon kankri translator, identical to signless array at creation but separated to preserve from any alterations that unda canon signless may adopt
+const kankriTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let kankriArray = []
+    state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
+    //removing isolated capitals
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
+    let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
+    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    kankriArray.push(regComplete)
+    // adding workskin coding
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kankri">';
+        kankriArray.unshift(textColour)
+        kankriArray.push("</span>")
+    }
+    const kankriOutput = kankriArray.join("")
+    return kankriOutput
+}
 
+const meulinTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let meulinArray = []
+    state.handleOmit ? meulinArray = [""] : meulinArray = ["AC: "];
+    //converting to upper case
+    let upperInput = input.toUpperCase();
+    const eeResult = upperInput.replace(eeRegex, eeSubst);
+    const mogResult = eeResult.replace(mogRegex, mogSubst);
+    meulinArray.push(mogResult)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="nepeta">';
+        meulinArray.unshift(textColour)
+        meulinArray.push("</span>")
+    }
+    const meulinOutput = meulinArray.join("")
+    return meulinOutput
+};
+
+const porrimTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let porrimArray = []
+    state.handleOmit ? porrimArray = [""] : porrimArray = ["GA: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
+    //running formatted text through regex filters
+    let oPlusResult = capitalizedText.replace(oPlusRegex, oPlusSubst);
+    let zeroPlusResult = oPlusResult.replace(zeroPlusRegex, zeroPlusSubst);
+    let plusResult = zeroPlusResult.replace(plusRegex, plusSubst)
+    porrimArray.push(plusResult)
+    //workskin formatting add
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kanaya">';
+        porrimArray.unshift(textColour)
+        porrimArray.push("</span>")
+    }
+    const porrimOutput = porrimArray.join("")
+    return porrimOutput
+};
+
+const latulaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let latulaArray = []
+    state.handleOmit ? latulaArray = [""] : latulaArray = ["GC: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //feeding capsResult text through regex translators.
+    const aResult = capsResult.replace(aRegex, aSubst);
+    const iToOneResult = aResult.replace(iToOneRegex, iToOneSubst);
+    const eResult = iToOneResult.replace(eRegex, eSubst);
+    //adding regex results to completed regex variable
+    const regComplete = eResult
+    latulaArray.push(regComplete)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="terezi">';
+        latulaArray.unshift(textColour)
+        latulaArray.push("</span>")
+    }
+    const latulaOutput = latulaArray.join("")
+    return latulaOutput
+}
+
+const araneaTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let araneaArray = []
+    state.handleOmit ? araneaArray = [""] : araneaArray = ["AG: "]
+    //removing lone caps and capitalising properly
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
+    //running formatted text through regex filters
+    let bReplaced = capitalizedText.replace(bRegex, bSubst)
+    araneaArray.push(bReplaced)
+    if(state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="vriska">';
+            araneaArray.unshift(textColour);
+            araneaArray.push("</span>"); 
+        }
+    let araneaOutput = araneaArray.join("");
+    return araneaOutput
+}
+
+const horussTranslate = input => {
+    //creating 2 arrays and opening with chat handle and space, set up to respond to the handleOmit variable
+    let horussArray1 = []
+    let horussArray2 = []
+    state.handleOmit ? horussArray1 = [""] : horussArray1 = ["CT: "];
+    state.handleOmit ? horussArray2 = [""] : horussArray2 = ["CT: "];    
+    //will create two boxes, with a checkbox which will change those boxes, creating four possible options: box 1 horse puns with curses filtered, box 2 no horse puns but curses filtered; then when the remove curse filtering box is checked there will be: box 1 horse puns no curse filter, box 2 no puns and no curse filter.    
+    //this first section is applied to all four outputs prior to any pun input. This will catch strange caps errors and make the filters work better, though it is not practical to apply this to all pun characters. 
+    //removing isolated capitals
+    let capsResult = removeIsolatedCaps(input)
+    //capitalising sentences
+    let capsLocationArray = capsIdentifier(capsResult);
+    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
+
+    //box 1 logic
+    let punResult1 = horsePunInput(capitalizedText)
+    let preRegex1
+    if (state.strictCurse) {
+        let strictResult1 = strictCurseInput(punResult1)
+        let trollCensored1 = trollCurseInput(strictResult1)
+        preRegex1 = trollCensored1
+    } else {
+        preRegex1 = punResult1
+    }
+    //feeding input text through first regex translator.
+    const strongResult1 = preRegex1.replace(strongRegex, strongSubst);
+    const strengthResult1 = strongResult1.replace(strengthRegex, strengthSubst);
+    const strongnessResult1 = strengthResult1.replace(strongnessRegex, strongnessSubst);
+    const strongestResult1 = strongnessResult1.replace(strongestRegex, strongestSubst);
+    const strengthenResult1 = strongestResult1.replace(strengthenRegex, strengthenSubst);
+    const stronglyResult1 = strengthenResult1.replace(stronglyRegex, stronglytSubst);
+    const fortifyResult1 = stronglyResult1.replace(fortifyRegex, fortifySubst);
+    const mightResult1 = fortifyResult1.replace(mightRegex, mightSubst);
+    const mightyResult1 = mightResult1.replace(mightyRegex, mightySubst);
+    const xResult1 = mightyResult1.replace(xRegex, xSubst);
+    const looResult1 = xResult1.replace(looRegex, looSubst);
+    const oolResult1 = looResult1.replace(oolRegex, oolSubst);
+    const crossResult1 = oolResult1.replace(crossRegex, crossSubst);
+    //adding regex results to completed regex variable
+    const regComplete1 = crossResult1
+    horussArray1.push(regComplete1)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="equius">';
+        horussArray1.unshift(textColour)
+        horussArray1.push("</span>")
+    }
+    //box 2 logic
+    let preRegex
+    if (state.strictCurse) {
+        let strictResult = strictCurseInput(capitalizedText)
+        let trollCensored = trollCurseInput(strictResult)
+        preRegex = trollCensored
+    } else {
+        preRegex = capitalizedText
+    }
+    //feeding input text through first regex translator.
+    const strongResult = preRegex.replace(strongRegex, strongSubst);
+    const strengthResult = strongResult.replace(strengthRegex, strengthSubst);
+    const strongnessResult = strengthResult.replace(strongnessRegex, strongnessSubst);
+    const strongestResult = strongnessResult.replace(strongestRegex, strongestSubst);
+    const strengthenResult = strongestResult.replace(strengthenRegex, strengthenSubst);
+    const stronglyResult = strengthenResult.replace(stronglyRegex, stronglytSubst);
+    const fortifyResult = stronglyResult.replace(fortifyRegex, fortifySubst);
+    const mightResult = fortifyResult.replace(mightRegex, mightSubst);
+    const mightyResult = mightResult.replace(mightyRegex, mightySubst);
+    const xResult = mightyResult.replace(xRegex, xSubst);
+    const looResult = xResult.replace(looRegex, looSubst);
+    const oolResult = looResult.replace(oolRegex, oolSubst);
+    const crossResult = oolResult.replace(crossRegex, crossSubst);
+    //adding regex results to completed regex variable
+    const regComplete = crossResult
+    horussArray2.push(regComplete)
+
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="equius">';
+        horussArray2.unshift(textColour)
+        horussArray2.push("</span>")
+    }
+    const horussOutput = `${horussArray1.join("")}\n${horussArray2.join("")}`
+    return horussOutput
+}
+
+const kurlozTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let kurlozArray = []
+    state.handleOmit ? kurlozArray = [""] : kurlozArray = ["TC: "];
+    //converting to upper case
+    let upperInput = input.toUpperCase();
+    kurlozArray.push(upperInput)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="gamzee">';
+        kurlozArray.unshift(textColour)
+        kurlozArray.push("</span>")
+    }
+    const kurlozOutput = kurlozArray.join("")
+    return kurlozOutput
+    
+}
+
+const cronusTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let cronusArray = []
+    state.handleOmit ? cronusArray = [""] : cronusArray = ["CA: "]
+    //removing isolated capitals
+    let capsResult = removeIsolatedCaps(input)
+    //feeding into eridan's w and v translators first
+    // v doubling with case matching
+    const vvResult = capsResult.replace(vRegex, (match, offset, string) => {
+        const nextChar = string[offset + 1];
+        const prevChar = string[offset - 1];
+        const useUppercase = (nextChar && /[A-Z]/.test(nextChar)) || 
+                                (prevChar && /[A-Z]/.test(prevChar));
+        return match + (useUppercase ? match.toUpperCase() : match.toLowerCase());
+    });
+    // w doubling with case matching
+    const wwResult = vvResult.replace(wwRegex, (match, offset, string) => {
+        const nextChar = string[offset + 1];
+        const prevChar = string[offset - 1];
+        const useUppercase = (nextChar && /[A-Z]/.test(nextChar)) || 
+                                (prevChar && /[A-Z]/.test(prevChar));
+        return match + (useUppercase ? match.toUpperCase() : match.toLowerCase());
+    });
+    //converting these with cronus's regexes to work back from eridan's more simple doubling
+    let lowVW = wwResult.replace(vwRegexLower, vwSubstLower);
+    let upperVW = lowVW.replace(vwRegexUpper, vwSubstUpper);
+    let lowWV = upperVW.replace(wvRegexLower, wvSubstLower);
+    let upperWV = lowWV.replace(wvRegexUpper, wvSubstUpper);
+    //splitting into array of individual words. Doing this as b > 8 conversion only happens in all caps words, so this avoids partially capital words setting it off.
+    const words = upperWV.split("")
+    let regWord = []
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i]
+        if (word === word.toUpperCase) {
+            word = word.replace(capBRegex, bSubst)
+            regWord.push(word)
+        } else {
+            regWord.push(word)
+        }
+    }
+    //rejoining into array to remove punctuation
+    let bReplaced = regWord.join("")
+    const punctRemoved = []
+    for (let i = 0; i < bReplaced.length; i++) {
+        if (cronusPunctuation.includes(bReplaced[i])) {
+            continue
+        } else {
+            punctRemoved.push(bReplaced[i])
+        }
+    }
+    cronusArray.push(punctRemoved.join(""))
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="eridan">';
+        cronusArray.unshift(textColour)
+        cronusArray.push("</span>")
+    }
+    const cronusOutput = cronusArray.join("")
+    return cronusOutput
+}
+
+const meenahTranslate = input => {
+    let meenahArray = []
+    state.handleOmit ? meenahArray = [""] : meenahArray = ["CC: "]
+    let ingResult = ingConverterInput(input);
+    let capsResult = removeIsolatedCaps(ingResult)
+    //feeding through regex translators
+    const hResult = capsResult.replace(hRegex, hSubst)
+    const eResult = hResult.replace(capERegex, capESubst)
+    const regComplete = eResult
+    meenahArray.push(regComplete)
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="feferi">';
+        meenahArray.unshift(textColour)
+        meenahArray.push("</span>")
+    }
+    const meenahOutput = meenahArray.join("")
+    return meenahOutput
+}
+
+//unda translators
+
+const psiionicTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let psiiArray = []
+    state.handleOmit ? psiiArray = [""] : psiiArray = ["TA: "]
+    //converting input text to lower case
+    let lowerInput = input.toLowerCase();
+    //feeding lowerInput text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. Using the caps identifier functions and capitalize at indices to apply appropriate caps use, this goes before the i converter as that will always be lower case.
+    let capsLocationArray = capsIdentifier(lowerInput);
+    const capitalizedText = capitalizeAtIndices(lowerInput, capsLocationArray)
+    const twoIsolatedResult = capitalizedText.replace(twoIsolatedRegex, twoIsolatedSubst);
+    const intoResult = twoIsolatedResult.replace(intoRegex, intoSubst);
+    const todayResult = intoResult.replace(todayRegex, todaySubst);
+    const tomorrowResult = todayResult.replace(tomorrowRegex, tomorrowSubst);
+    const togetherResult = tomorrowResult.replace(togetherRegex, togetherSubst);
+    const tonightResult = togetherResult.replace(tonightRegex, tonightSubst);
+    const sResult = tonightResult.replace(sRegex, sSubst);
+    const iResult = sResult.replace(iRegex, iSubst);
+    const lResult = iResult.replace(lRegex, lSubst);
+    const oResult = lResult.replace(oRegex, oSubst);
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
+    for (let i = 0; i < regComplete.length; i++) {
+        if (psiiPunctuation.includes(regComplete[i])) {
+            continue
+        } else {
+            psiiArray.push(regComplete[i])
+        }
+    }
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="sollux">';
+        psiiArray.unshift(textColour)
+        psiiArray.push("</span>")
+    }
+    const psiiOutput = psiiArray.join("")
+    return psiiOutput
+    }
+
+const signlessTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let signlessArray = []
+    state.handleOmit ? signlessArray = [""] : signlessArray = ["CG: "]
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
+    let capitalizedText = capitalizeSentences(input)
+    let bResult = capitalizedText.replace(bToSixRegex, bToSixSubst)
+    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    signlessArray.push(regComplete)
+    // adding workskin coding
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kankri">';
+        signlessArray.unshift(textColour)
+        signlessArray.push("</span>")
+    }
+    const signlessOutput = signlessArray.join("")
+    return signlessOutput
+}
+
+const discipleTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let discipleArray = []
+    state.handleOmit ? discipleArray = [""] : discipleArray = ["AC: "];
+    //bracketing Disciple's text with her partner's signs if selected. If the workskin coding is on, the sign halves will be formatted in their colours, else they will be added as plaintext. Opening added here.
+    if (state.discipleStart) {
+        state.workskinCode ? discipleArray.push('<span class="kankri">6</span><span class="sollux">I</span><span class="nepeta"> ') : discipleArray.push("6I ")
+    }
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This first one ensures that the first letter of every sentence is capitalised.
+    let capitalizedText = capitalizeSentences(input)
+    const eeResult = capitalizedText.replace(eeRegex, eeSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = eeResult
+    discipleArray.push(regComplete)
+    //bracketing Disciple's text with her partner's signs if selected. Ended added here.
+    if (state.discipleStart) {
+        state.workskinCode ? discipleArray.push('<span class="sollux">I</span><span class="kankri">9</span><span class="nepeta"> ') : discipleArray.push("I9 ")
+    }
+    // adding workskin coding
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="nepeta">';
+        discipleArray.unshift(textColour)
+        discipleArray.push("</span>")
+    }
+    const discipleOutput = discipleArray.join("")
+    return discipleOutput
+}
+
+const undaKankriTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let kankriArray = []
+    state.handleOmit ? kankriArray = [""] : kankriArray = ["CG: "]
+    // Feeding Input text through first regex translator. Translator creates a variable holding a string with the name of the completed regex translator and the word 'result' as its name, it uses the .replace function on the input with the variables of the first regex expression and then the matching substitution. This cascades downwards through the needed regex translators. This Kankri may make errors in capitalising things, so proper form is not code-enforced
+    let bResult = input.replace(bToSixRegex, bToSixSubst)
+    let oResult = bResult.replace(oToNineRegex, oToNineSubst)
+    //adding the regex results to a completed regex variable, for easier transition to regular code.
+    let regComplete = oResult
+    //feeding regComplete through the capsChain function to allow for kankri's rare use of all caps. This code block creates the caps values for capsChain and passes them to that function and saves the capsNum output.
+    kankriArray.push(regComplete)
+    // adding workskin coding
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="kankri">';
+        kankriArray.unshift(textColour)
+        kankriArray.push("</span>")
+    }
+    const kankriOutput = kankriArray.join("")
+    return kankriOutput
+}
 const undaMitunaTranslate = input => {
     //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
     let undaMitunaArray = []
@@ -919,13 +1146,6 @@ const undaHalTranslate = input => {
         const properEyeResult = lowerEyeResult.replace(properEyeRegex, properEyeSubst);
         const upperEyeResult = properEyeResult.replace(upperEyeRegex, upperEyeSubst);
         halArray.push(upperEyeResult)
-/*         if (state.workskinCode) {
-            let textColour = state.workskinCustom || '<span class="black">';
-            halArray.unshift(textColour)
-            halArray.push("</span>")
-            const halOutput = halArray.join("")
-            return halOutput
-        } */
     } else {
     halArray.push(capitalizedText)
     }
@@ -941,285 +1161,57 @@ const undaHalTranslate = input => {
 
 console.log(undaHalTranslate(input))
 
-const rufiohTranslate = input => {
-    // Create TWO separate arrays for two outputs
-    let rufiohArray1 = []
-    let rufiohArray2 = []
-    state.handleOmit ? rufiohArray1 = [""] : rufiohArray1 = ["AT: "];
-    state.handleOmit ? rufiohArray2 = [""] : rufiohArray2 = ["AT: "];
+//print log for translator testing:
+console.log(`Default input text: ${input}`)
+console.log(`Aradia:  ${aradiaTranslate(input)}`)
+console.log(`Tavros:  ${tavrosTranslate(input)}`)
+console.log(`Sollux:  ${solluxTranslate(input)}`)
+console.log(`Karkat:  ${karkatTranslate(input)}`)
+console.log(`Nepeta (no pun):  ${nepetaTranslate(input)}`)
+console.log(`Nepeta (pun):  ${nepetaTranslate(catPunInput(input))}`)
+console.log(`Kanaya:  ${kanayaTranslate(input)}`)
+console.log(`Terezi:  ${tereziTranslate(input)}`)
+console.log(`Vriska:  ${vriskaTranslate(input)}`)
+console.log(`Equius (no pun):  ${equiusTranslate(input)}`)
+console.log(`Equius (pun):  ${equiusTranslate(horsePunInput(input))}`)
+console.log(`Gamzee:  ${gamzeeTranslate(input)}`)
+console.log(`Eridan (no pun):  ${eridanTranslate(input)}`)
+console.log(`Eridan (pun):  ${eridanTranslate(seadwellerPunInput(input))}`)
+console.log(`Feferi (no pun):  ${feferiTranslate(input)}`)
+console.log(`Feferi (pun):  ${feferiTranslate(seadwellerPunInput(input))}`)
+console.log(`Damara:  ${damaraTranslate(input)}`)
+console.log(`Rufioh:  ${rufiohTranslate(input)}`)
+console.log(`Mituna:  ${mitunaTranslate(input)}`)
+console.log(`Kankri:  ${kankriTranslate(input)}`)
+console.log(`Meulin (no pun):  ${meulinTranslate(input)}`)
+console.log(`Meulin (pun):  ${meulinTranslate(catPunInput(input))}`)
+console.log(`Porrim:  ${porrimTranslate(input)}`)
+console.log(`Latula:  ${latulaTranslate(input)}`)
+console.log(`Aranea (no pun):  ${araneaTranslate(input)}`)
+console.log(`Aranea (pun):  ${araneaTranslate(serketPunInput(input))}`)
+console.log(`Horuss:  ${horussTranslate(input)}`)
+console.log(`Kurloz:  ${kurlozTranslate(input)}`)
+console.log(`Cronus:  ${cronusTranslate(input)}`)
+console.log(`Meenah (no pun):  ${meenahTranslate(input)}`)
+console.log(`Meenah (pun):  ${meenahTranslate(seadwellerPunInput(input))}`)
+//console.log(`:  ${(input)}`)
 
-    // Apply troll only curse filtering to input for version 1
-    let capsResult1 = removeIsolatedCaps(input)
-    let trollCensored = trollCurseInput(capsResult1)
-    let iResult1 = trollCensored.replace(iToOneRegex, iToOneSubst);
-    rufiohArray1.push(iResult1);
-    
-    // Apply troll and human curse filtering to input for version 2
-    let capsResult2 = removeIsolatedCaps(input);
-    let trollHumanCensored = trollHumanCurseInput(capsResult2);    
-    let iResult2 = trollHumanCensored.replace(iToOneRegex, iToOneSubst);
-    rufiohArray2.push(iResult2);
-    
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="tavros">';
-        rufiohArray1.unshift(textColour)
-        rufiohArray2.unshift(textColour)
-        rufiohArray1.push("</span>")
-        rufiohArray2.push("</span>")
-    }
-    // Join both arrays and return with newline separator so they'll go to each textbox
-    const rufiohOutput = `${rufiohArray1.join("")}\n${rufiohArray2.join("")}`
-    return rufiohOutput
-}
+//unda translators
+//console.log(`Psiionic:  ${psiionicTranslate(input)}`)
+//console.log(`Signless:  ${signlessTranslate(input)}`)
+//console.log(`Disciple (no pun):  ${discipleTranslate(input)}`)
+//console.log(`Disciple (pun):  ${discipleStart(catPunInput(input))}`)
+//console.log(`Kankri-Unda:  ${undaKankriTranslate(input)}`)
 
-console.log(rufiohTranslate(input))
-
-const damaraTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let damaraArray = []
-    state.handleOmit ? damaraArray = [""] : damaraArray = ["AA: "]
-    damaraArray.push(input)
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="aradia">';
-        damaraArray.unshift(textColour)
-        damaraArray.push("</span>")
-        
-        }
-    const damaraOutput = damaraArray.join("")
-    return damaraOutput
-}
-
-console.log(damaraTranslate(input))
-
-const meulinTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let meulinArray = []
-    state.handleOmit ? meulinArray = [""] : meulinArray = ["AC: "];
-    //converting to upper case
-    let upperInput = input.toUpperCase();
-    //ee conversion
-    const eeResult = upperInput.replace(eeRegex, eeSubst);
-    //mog conversion
-    const mogResult = eeResult.replace(mogRegex, mogSubst);
-    meulinArray.push(mogResult)
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="nepeta">';
-        meulinArray.unshift(textColour)
-        meulinArray.push("</span>")
-    }
-    const meulinOutput = meulinArray.join("")
-    return meulinOutput
-};
-
-console.log(meulinTranslate(input))
-console.log(meulinTranslate(catPunInput(input)))
-
-const porrimTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let porrimArray = []
-    state.handleOmit ? porrimArray = [""] : porrimArray = ["GA: "]
-    //removing lone caps and capitalising properly
-    let capsResult = removeIsolatedCaps(input)
-    //capitalising sentences
-    let capsLocationArray = capsIdentifier(capsResult);
-    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
-    //running formatted text through regex filters
-    let oPlusResult = capitalizedText.replace(oPlusRegex, oPlusSubst);
-    let zeroPlusResult = oPlusResult.replace(zeroPlusRegex, zeroPlusSubst);
-    let plusResult = zeroPlusResult.replace(plusRegex, plusSubst)
-    porrimArray.push(plusResult)
-    //workskin formatting add
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="kanaya">';
-        porrimArray.unshift(textColour)
-        porrimArray.push("</span>")
-    }
-    const porrimOutput = porrimArray.join("")
-    return porrimOutput
-};
-
-console.log(porrimTranslate(input))
-
-const latulaTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let latulaArray = []
-    state.handleOmit ? latulaArray = [""] : latulaArray = ["GC: "]
-    //removing lone caps and capitalising properly
-    let capsResult = removeIsolatedCaps(input)
-    //feeding capsResult text through first regex translator.
-    const aResult = capsResult.replace(aRegex, aSubst);
-    //feeding aResult output into the next translator
-    const iToOneResult = aResult.replace(iToOneRegex, iToOneSubst);
-    //feeding iToOneResult output into the next translator
-    const eResult = iToOneResult.replace(eRegex, eSubst);
-    //adding regex results to completed regex variable
-    const regComplete = eResult
-    latulaArray.push(regComplete)
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="terezi">';
-        latulaArray.unshift(textColour)
-        latulaArray.push("</span>")
-    }
-    const latulaOutput = latulaArray.join("")
-    return latulaOutput
-}
-
-console.log(latulaTranslate(input))
-
-const araneaTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let araneaArray = []
-    state.handleOmit ? araneaArray = [""] : araneaArray = ["AG: "]
-    //removing lone caps and capitalising properly
-    let capsResult = removeIsolatedCaps(input)
-    //capitalising sentences
-    let capsLocationArray = capsIdentifier(capsResult);
-    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray);
-    //running formatted text through regex filters
-    let bReplaced = capitalizedText.replace(bRegex, bSubst)
-    araneaArray.push(bReplaced)
-    if(state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="vriska">';
-            araneaArray.unshift(textColour);
-            araneaArray.push("</span>"); 
-        }
-    let araneaOutput = araneaArray.join("");
-    return araneaOutput
-}
-
-console.log(araneaTranslate(input))
-console.log(araneaTranslate(serketPunInput(input)))
-
-const horussTranslate = input => {
-    //creating 2 arrays and opening with chat handle and space, set up to respond to the handleOmit variable
-    let horussArray1 = []
-    let horussArray2 = []
-    state.handleOmit ? horussArray1 = [""] : horussArray1 = ["CT: "];
-    state.handleOmit ? horussArray2 = [""] : horussArray2 = ["CT: "];
-    
-    //will create two boxes, with a checkbox which will change those boxes, creating four possible options: box 1 horse puns with curses filtered, box 2 no horse puns but curses filtered; then when the remove curse filtering box is checked there will be: box 1 horse puns no curse filter, box 2 no puns and no curse filter.
-    
-    //this first section is applied to all four outputs prior to any pun input. This will catch strange caps errors and make the filters work better, though it is not practical to apply this to all pun characters. 
-    //removing isolated capitals
-    let capsResult = removeIsolatedCaps(input)
-    //capitalising sentences
-    let capsLocationArray = capsIdentifier(capsResult);
-    const capitalizedText = capitalizeAtIndices(capsResult, capsLocationArray)
-
-    //box 1 logic
-    let punResult1 = horsePunInput(capitalizedText)
-    let preRegex1
-    if (state.strictCurse) {
-        let strictResult1 = strictCurseInput(punResult1)
-        let trollCensored1 = trollCurseInput(strictResult1)
-        preRegex1 = trollCensored1
-    } else {
-        preRegex1 = punResult1
-    }
-    //feeding input text through first regex translator.
-    const strongResult1 = preRegex1.replace(strongRegex, strongSubst);
-    //feeding strongResult output into the next translator
-    const strengthResult1 = strongResult1.replace(strengthRegex, strengthSubst);
-    //feeding strengthResult output into the next translator
-    const strongnessResult1 = strengthResult1.replace(strongnessRegex, strongnessSubst);
-    //feeding strongnessResult output into the next translator
-    const strongestResult1 = strongnessResult1.replace(strongestRegex, strongestSubst);
-    //feeding strongestResult output into the next translator
-    const strengthenResult1 = strongestResult1.replace(strengthenRegex, strengthenSubst);
-    //feeding strengthenResult output into the next translator
-    const stronglyResult1 = strengthenResult1.replace(stronglyRegex, stronglytSubst);
-    //feeding stronglyResult into next translator
-    const fortifyResult1 = stronglyResult1.replace(fortifyRegex, fortifySubst);
-    //feeding fortifyResult into next translator
-    const mightResult1 = fortifyResult1.replace(mightRegex, mightSubst);
-    //feeding mightResult into next translator
-    const mightyResult1 = mightResult1.replace(mightyRegex, mightySubst);
-    //feeding mightyResult into next translator
-    const xResult1 = mightyResult1.replace(xRegex, xSubst);
-    //feeding xResult output into the next translator
-    const looResult1 = xResult1.replace(looRegex, looSubst);
-    //feeding looResult output into the next translator
-    const oolResult1 = looResult1.replace(oolRegex, oolSubst);
-    //feeding oolResult output into the next translator
-    const crossResult1 = oolResult1.replace(crossRegex, crossSubst);
-    //adding regex results to completed regex variable
-    const regComplete1 = crossResult1
-    horussArray1.push(regComplete1)
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="equius">';
-        horussArray1.unshift(textColour)
-        horussArray1.push("</span>")
-    }
-    //box 2 logic
-    let preRegex
-    if (state.strictCurse) {
-        let strictResult = strictCurseInput(capitalizedText)
-        let trollCensored = trollCurseInput(strictResult)
-        preRegex = trollCensored
-    } else {
-        preRegex = capitalizedText
-    }
-    //feeding input text through first regex translator.
-    const strongResult = preRegex.replace(strongRegex, strongSubst);
-    //feeding strongResult output into the next translator
-    const strengthResult = strongResult.replace(strengthRegex, strengthSubst);
-    //feeding strengthResult output into the next translator
-    const strongnessResult = strengthResult.replace(strongnessRegex, strongnessSubst);
-    //feeding strongnessResult output into the next translator
-    const strongestResult = strongnessResult.replace(strongestRegex, strongestSubst);
-    //feeding strongestResult output into the next translator
-    const strengthenResult = strongestResult.replace(strengthenRegex, strengthenSubst);
-    //feeding strengthenResult output into the next translator
-    const stronglyResult = strengthenResult.replace(stronglyRegex, stronglytSubst);
-    //feeding stronglyResult into next translator
-    const fortifyResult = stronglyResult.replace(fortifyRegex, fortifySubst);
-    //feeding fortifyResult into next translator
-    const mightResult = fortifyResult.replace(mightRegex, mightSubst);
-    //feeding mightResult into next translator
-    const mightyResult = mightResult.replace(mightyRegex, mightySubst);
-    //feeding mightyResult into next translator
-    const xResult = mightyResult.replace(xRegex, xSubst);
-    //feeding xResult output into the next translator
-    const looResult = xResult.replace(looRegex, looSubst);
-    //feeding looResult output into the next translator
-    const oolResult = looResult.replace(oolRegex, oolSubst);
-    //feeding oolResult output into the next translator
-    const crossResult = oolResult.replace(crossRegex, crossSubst);
-    //adding regex results to completed regex variable
-    const regComplete = crossResult
-    horussArray2.push(regComplete)
-
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="equius">';
-        horussArray2.unshift(textColour)
-        horussArray2.push("</span>")
-    }
-    const horussOutput = `${horussArray1.join("")}\n${horussArray2.join("")}`
-    return horussOutput
-}
-
-console.log(horussTranslate(input));
-
-const kurlozTranslate = input => {
-    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
-    let kurlozArray = []
-    state.handleOmit ? kurlozArray = [""] : kurlozArray = ["TC: "];
-    //converting to upper case
-    let upperInput = input.toUpperCase();
-    //adding to array
-    kurlozArray.push(upperInput)
-    //converting array to string
-    if (state.workskinCode) {
-        let textColour = state.workskinCustom || '<span class="gamzee">';
-        kurlozArray.unshift(textColour)
-        kurlozArray.push("</span>")
-    }
-    const kurlozOutput = kurlozArray.join("")
-    return kurlozOutput
-    
-}
-
-console.log(kurlozTranslate(input))
+//print log for pun input testers
+//console.log(`catPunInput ${catPunInput(input)}`)
+//console.log(`serket pun input ${serketPunInput(input)}`)
+//console.log(`horse pun input ${horsePunInput(input)}`)
+//console.log(`seadweller pun input ${seadwellerPunInput(input)}`)
+//console.log(`ing converter input ${ingConverterInput(input)}`)
+//console.log(`troll curse input ${trollCurseInput(input)}`)
+//console.log(`troll human curse input ${trollHumanCurseInput(input)}`)
+//console.log(`strict curse input ${strictCurseInput(input)}`)
 
 // Export all translator functions for use in web interface
 export {
@@ -1264,4 +1256,6 @@ export {
     araneaTranslate,
     horussTranslate,
     kurlozTranslate,
+    cronusTranslate,
+    meenahTranslate,
 };
