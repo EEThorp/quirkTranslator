@@ -1200,6 +1200,27 @@ const horussTranslate = input => {
 
 console.log(horussTranslate(input));
 
+const kurlozTranslate = input => {
+    //creating array and opening it with chat handle and space, set up to respond to the handleOmit variable
+    let kurlozArray = []
+    state.handleOmit ? kurlozArray = [""] : kurlozArray = ["TC: "];
+    //converting to upper case
+    let upperInput = input.toUpperCase();
+    //adding to array
+    kurlozArray.push(upperInput)
+    //converting array to string
+    if (state.workskinCode) {
+        let textColour = state.workskinCustom || '<span class="gamzee">';
+        kurlozArray.unshift(textColour)
+        kurlozArray.push("</span>")
+    }
+    const kurlozOutput = kurlozArray.join("")
+    return kurlozOutput
+    
+}
+
+console.log(kurlozTranslate(input))
+
 // Export all translator functions for use in web interface
 export {
     // Pun input converters
@@ -1242,4 +1263,5 @@ export {
     latulaTranslate,
     araneaTranslate,
     horussTranslate,
+    kurlozTranslate,
 };
