@@ -12,7 +12,7 @@ import { strictCurseFiltered} from './strictCurses.js';
 
 import { twoIsolatedRegex, twoIsolatedSubst, intoRegex, intoSubst, todayRegex, todaySubst, tomorrowRegex, tomorrowSubst, togetherRegex, togetherSubst, tonightRegex, tonightSubst, sRegex, sSubst, iRegex, iSubst, lRegex, lSubst, oRegex, oSubst, startCapRegex, commaRegex, commaSubst, eeRegex, eeSubst, aRegex, aSubst, iToOneRegex, iToOneSubst, eRegex, eSubst, xRegex, xSubst, looRegex, looSubst, oolRegex, oolSubst, crossRegex, crossSubst, wwRegex, vRegex, capERegex, capESubst, hRegex, hSubst, bRegex, bSubst, sToFiveRegex, sToFiveSubst, tRegex, tSubst, bToSixRegex, bToSixSubst, oToNineRegex, oToNineSubst, oPlusRegex, oPlusSubst, zeroPlusRegex, zeroPlusSubst, capsRegex, strongRegex, strongSubst, strengthRegex, strengthSubst, strongnessRegex, strongnessSubst, strongestRegex, strongestSubst, wannaLowerRegex, wannaLowerSubst, wannaProperRegex, wannaProperSubst, wannaUpperRegex, wannaUpperSubst, gonnaLowerRegex, gonnaLowerSubst, gonnaProperRegex, gonnaProperSubst, gonnaUpperRegex, gonnaUpperSubst, upperIRegex, upperISubst, lowerIRegex, lowerISubst, lowerEyeRegex, lowerEyeSubst, properEyeRegex, properEyeSubst, upperEyeRegex, upperEyeSubst, plusRegex, plusSubst, mogRegex, mogSubst,  strengthenRegex, strengthenSubst, stronglyRegex, stronglytSubst, fortifyRegex, fortifySubst, mightRegex, mightSubst, mightyRegex, mightySubst, vwRegexLower, vwSubstLower, vwRegexUpper, vwSubstUpper, wvRegexLower, wvSubstLower, wvRegexUpper, wvSubstUpper, capBRegex } from './regexFilters.js';
 
-import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps } from './punctuation.js';
+import { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps, punctuationRemover, onlyEllipsis  } from './punctuation.js';
 
 //pun translator sections below
 
@@ -137,14 +137,10 @@ const aradiaTranslate = input => {
         oResult = capsResult.join("");
         };
     let regComplete = oResult
-    //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
-    for (let i = 0; i < regComplete.length; i++) {
-        if (aradiaPunctuation.includes(regComplete[i])) {
-            continue
-        } else {
-            aradiaArray.push(regComplete[i])
-        }
-    }
+    //iterating through regComplete to remove disallowed punctuation.
+    let punctRemoved = []
+    punctuationRemover(regComplete, aradiaPunctuation, punctRemoved)
+    aradiaArray.push(punctRemoved.join(""))
     if (state.workskinCode) {
         let textColour = state.workskinCustom || '<span class="aradia">';
         aradiaArray.unshift(textColour)
@@ -266,13 +262,9 @@ const nepetaTranslate = input => {
     const eeResult = capsResult.replace(eeRegex, eeSubst)
     const regComplete = eeResult
     //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
-    for (let i = 0; i < regComplete.length; i++) {
-        if (nepetaPunctuation.includes(regComplete[i])) {
-            continue
-        } else {
-            nepetaArray.push(regComplete[i])
-        }
-    }
+    let punctRemoved = []
+    punctuationRemover(regComplete, nepetaPunctuation, punctRemoved)
+    nepetaArray.push(punctRemoved.join(""))
     if (state.workskinCode) {
         let textColour = state.workskinCustom || '<span class="nepeta">';
         nepetaArray.unshift(textColour)
@@ -289,14 +281,9 @@ const kanayaTranslate = input => {
     state.handleOmit ? kanayaArray = [""] : kanayaArray = ["GA: "];
     //converting input to lowercase to ensure that that everything is lowercase before we convert the first letter of each word to uppercase.
     const lowerInput = input.toLowerCase()
-    const punctRemoved = []
-    for (let i = 0; i < lowerInput.length; i++) {
-        if (punctuationAll.includes(lowerInput[i])) {
-            continue
-        } else {
-            punctRemoved.push(lowerInput[i])
-        }
-    }
+    let punctRemoved = []
+    punctuationRemover(lowerInput, punctuationAll, punctRemoved)
+    kanayaArray.push(punctRemoved.join(""))
     const punctArray = punctRemoved.join("")    
     //splitting input into individual words and saving them in the words array.
     const words = punctArray.split(" ");
@@ -329,13 +316,9 @@ const tereziTranslate = input => {
     //adding regex results to completed regex variable
     const regComplete = eResult
     //iterating through regComplete to remove disallowed punctuation. Anything appearing on the redacted punctuation list is skipped with 'continue', and everything else is added to the array.
-    for (let i = 0; i < regComplete.length; i++) {
-        if (tereziPunctuation.includes(regComplete[i])) {
-            continue
-        } else {
-            tereziArray.push(regComplete[i])
-        }
-    }
+    let punctRemoved = []
+    punctuationRemover(regComplete, tereziPunctuation, punctRemoved)
+    tereziArray.push(punctRemoved.join(""))
     if (state.workskinCode) {
         let textColour = state.workskinCustom || '<span class="terezi">';
         tereziArray.unshift(textColour)
