@@ -195,4 +195,47 @@ const removeIsolatedCaps = (input) => {
     return result.join("");
 }
 
-export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps };
+//feed this the input that needs punctuation removed, the name of the punctuation library, and the array that you want the stripped punctuation output going to. You need to have set this up already in your translator.Use this format:
+/* let punctRemoved = []
+    punctuationRemover(regComplete, nepetaPunctuation, punctRemoved)
+    nepetaArray.push(punctRemoved.join("")) */
+const punctuationRemover = (toRemove, library, array) => {
+    for (let i = 0; i < toRemove.length; i++) {
+        if (library.includes(toRemove[i])) {
+            //console.log(toRemove[i])
+            continue
+        } else {
+            array.push(toRemove[i])
+            //console.log(toRemove[i])
+        }
+    }
+    return array.join("")
+}
+
+let punctRemoved = []
+console.log(punctuationRemover(input, aradiaPunctuation, punctRemoved))
+
+const onlyEllipsis = (input) => {
+    let result = []
+    for (let i = 0; i < input.length; i++) {
+        let isPeriod
+        input[i] === "." ? isPeriod = true : isPeriod = false;
+        if (isPeriod) {
+            let periodCount = 1  // current is already known to be "."
+        let prev = input[i - 1] || "";
+        let next = input[i + 1] || "";
+        if (prev === ".") periodCount++;
+        if (next === ".") periodCount++;
+            
+            if (periodCount >= 2) {
+                result.push(input[i])
+            }
+        } else {
+            result.push(input[i])
+        }
+    }
+    return result.join("");
+}
+
+
+export { punctuationAll, davePunctuation, jadePunctuationNoComma, jadePunctuationComma, aradiaPunctuation, nepetaPunctuation, tereziPunctuation, cronusPunctuation, terminalPunctuation, gamzeePunctuation, psiiPunctuation, capsIdentifier, capitalizeAtIndices, unCapitalizeAtIndices, capsChain, capitalizeSentences, evenCaps, oddCaps, removeIsolatedCaps, punctuationRemover, onlyEllipsis };
