@@ -13,6 +13,9 @@ Option 1: Using Python (recommended for quick testing)
    
    Python 3:
    python -m http.server 8000
+
+   IF ON MAC:
+   python3 -m http.server 8000
    
    Python 2:
    python -m SimpleHTTPServer 8000
